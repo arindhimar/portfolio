@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arin Dhimar</title>
+    <style>
+        :root {
+            --cursor-color: white;
+        }
+
+        body {
+            background-color: black;
+            font-family: monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .container {
+            overflow: hidden;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .line {
+            color: white;
+        }
+
+        .typing {
+            color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .typing::before {
+            content: attr(data-text);
+            color: white;
+            position: absolute;
+            left: 0;
+            top: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 0.1em solid var(--cursor-color);
+            animation: typing 3.5s steps(40, end) forwards, blink-caret 0.75s step-end infinite;
+        }
+
+        .line-2 {
+            margin-top: 20px;
+        }
+
+        .line-2.typing-complete .typing::before {
+            animation: typing 3.5s steps(40, end) forwards;
+        }
+
+        .line-3 {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .line-3.typing-complete .typing::before {
+            animation: typing 3.5s steps(40, end) forwards, blink-caret 0.75s step-end infinite;
+            animation-delay: 0s;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--cursor-color); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="line">Web/App Developer, Blog Writer & Tech Enthusiast</h1>
+        <div class="line-2">
+            <h2 class="typing" data-text="This is typing animation">This is typing animation</h2>
+        </div>
+        <div class="line-3">
+            <h1 class="typing" data-text="Arin Dhimar">Arin Dhimar</h1>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const line2 = document.querySelector('.line-2');
+            const line2Typing = document.querySelector('.line-2 .typing');
+            const line3 = document.querySelector('.line-3');
+
+            line2Typing.addEventListener('animationend', () => {
+                line2.classList.add('typing-complete');
+                line3.style.display = 'block';
+                line3.classList.add('typing-complete');
+            });
+        });
+    </script>
+</body>
+</html>

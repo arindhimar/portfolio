@@ -1,0 +1,10 @@
+Namer bvanner  below connect links of git lini gfg codechef,hackkerrank etc
+
+Down Arrow(SAMe page) right arrow(diffnpage )
+
+
+Cursor options
+
+Sticky cursor if we go near that element it should stick to that cursor
+
+https://viralcoder.in/how-to-create-a-sticky-cursor-effect-using-html-css-javascript/
