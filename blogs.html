@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Cards</title>
+    <script src="js/blogs-main-scrpit.js" defer></script>
+    <style>
+        :root {
+            --primary-color: white;
+            --secondary-color: #888;
+            --background-color: #222;
+            --accent-color: #00ffcc;
+            --border-color: rgb(54, 56, 55);
+            --card-color: #464141;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            cursor: none; /* Hide the default mouse cursor */
+            font-family: Arial, sans-serif;
+            background-color: var(--background-color);
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: var(--background-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 20px;
+            margin-left: auto;
+        }
+
+        .navbar-menu a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .navbar-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        .navbar-resume {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: var(--primary-color);
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            margin: 0 6% 0 1%;
+            transition: color 0.3s;
+        }
+
+        .navbar-resume::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0%;
+            width: 100%;
+            background-color: var(--accent-color);
+            transition: height 0.35s ease;
+            z-index: -1;
+        }
+
+        .navbar-resume:hover::before {
+            height: 100%;
+        }
+
+        .navbar-resume:hover {
+            color: var(--background-color);
+        }
+
+        .navbar-resume span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Blog Cards styles */
+        .blog-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 100px; /* Adjust to ensure the content isn't hidden behind the navbar */
+        }
+
+        .blog-card {
+            background-color: var(--card-color);
+            padding: 20px;
+            border-radius: 10px;
+            width: calc(23.3% - 40px); /* Subtracting the margin from the width */
+            margin: 20px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            box-sizing: border-box;
+            text-decoration: none;
+            color: inherit; /* Inherit color from parent */
+        }
+
+        .blog-card:hover {
+            transform: scale(1.05);
+        }
+
+        .blog-card .card-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .blog-card .card-content {
+            padding: 20px 0;
+        }
+
+        .blog-card .card-content .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .blog-card .card-content .card-text {
+            font-size: 14px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .blog-card .card-content .card-button {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .blog-card .card-content .card-button:hover {
+            background-color: var(--primary-color);
+            color: var(--accent-color);
+        }
+
+        .card-tags {
+            margin-top: 30px;
+        }
+
+        .tag {
+            background-color: #eee;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .tag:hover {
+            background-color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media only screen and (max-width: 1024px) {
+            .blog-card {
+                width: calc(33.33% - 30px); /* Adjust margin calculation */
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+            .blog-card {
+                width: calc(50% - 30px); /* Subtracting the margin from the width */
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            .blog-card {
+                width: calc(100% - 40px); /* Subtracting the margin from the width */
+            }
+        }
+
+        .custom-cursor {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="custom-cursor"></div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="navbar-logo">B</div>
+        <div class="navbar-menu">
+            <a href="index.html">Home</a>
+            <a href="#">Blogs</a>
+        </div>
+        <a href="#resume" class="navbar-resume">
+            Resume
+            <span></span>
+        </a>
+    </div>
+
+    <div class="blog-cards">
+        <a href="/blogs/power-algorithm-comparison.html" class="blog-card">
+            <img src="image1.jpg" alt="Blog Image" class="card-image">
+            <div class="card-content">
+                <h2 class="card-title">Can Power Algorithms Be Optimized Further?</h2>
+                <p class="card-text">Explore the basic and optimized power algorithms, and discover how they can be improved for even better performance.</p>
+                <button class="card-button">Read More</button>
+                <div class="card-tags">
+                    <span class="tag">Algorithm</span>
+                    <span class="tag">DSA</span>
+                    <span class="tag">Beginner</span>
+                </div>
+            </div>
+        </a>
+        <!-- Repeat similar blog-card structure for additional cards -->
+    </div>
+
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const cursor = document.querySelector('.custom-cursor');
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+        });
+    </script>
+</body>
+
+</html>

@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const customCursor = document.querySelector('.custom-cursor');
     const blogCards = document.querySelectorAll('.blog-card');
-    const radius = 100; // Radius around the div
-
-
+    const radius = 250; // Radius around the div
 
     document.addEventListener('mousemove', (e) => {
         let closestCard = null;
@@ -29,16 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const closestCardCenterY = closestCardRect.top + closestCardRect.height / 2;
             customCursor.style.left = `${closestCardCenterX}px`;
             customCursor.style.top = `${closestCardCenterY}px`;
+            customCursor.style.visibility = 'hidden'; /* Hide the custom cursor */
+            closestCard.style.cursor = 'none'; /* Hide the default mouse cursor on the card */
         } else {
             customCursor.style.left = `${e.clientX}px`;
             customCursor.style.top = `${e.clientY}px`;
+            customCursor.style.visibility = 'visible'; /* Show the custom cursor */
+            closestCard.style.cursor = 'auto'; /* Show the default mouse cursor on the card */
         }
     });
-});
-
-const line2 = document.querySelector('.line-2');
-const line2Typing = document.querySelector('.line-2 .typing');
-
-line2Typing.addEventListener('animationend', () => {
-    line2.classList.add('typing-complete');
 });

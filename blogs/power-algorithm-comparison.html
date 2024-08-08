@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Algorithm Comparison</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        :root {
+            --cursor-color: white;
+            --primary-color: white;
+            --secondary-color: #888;
+            --background-color: #222;
+            --accent-color: #00ffcc;
+            --border-color: rgb(54, 56, 55);
+            --card-color: #464141;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--primary-color);
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: var(--background-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 20px;
+            margin-left: auto;
+        }
+
+        .navbar-menu a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .navbar-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        .navbar-resume {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: var(--primary-color);
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            margin: 0 6% 0 1%;
+            transition: color 0.3s;
+        }
+
+        .navbar-resume::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0%;
+            width: 100%;
+            background-color: var(--accent-color);
+            transition: height 0.35s ease;
+            z-index: -1;
+        }
+
+        .navbar-resume:hover::before {
+            height: 100%;
+        }
+
+        .navbar-resume:hover {
+            color: var(--background-color);
+        }
+
+        .navbar-resume span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            margin-top: 80px;
+            padding: 20px;
+        }
+
+        .blog-card {
+            background-color: var(--card-color);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .blog-card h2 {
+            font-size: 28px;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .blog-card h3 {
+            font-size: 22px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .blog-card pre {
+            background-color: #222;
+            padding: 15px;
+            border-radius: 5px;
+            color: var(--primary-color);
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .blog-card p {
+            font-size: 18px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .blog-card ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .blog-card ul li {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+            line-height: 1.6;
+        }
+
+        .blog-card .pros-cons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .blog-card .pros-cons div {
+            width: 48%;
+        }
+
+        .blog-card .pros-cons div ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .blog-card .pros-cons div ul li {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .blog-card .conclusion {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .blog-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="navbar-logo">B</div>
+        <div class="navbar-menu">
+            <a href="../index.html">Home</a>
+            <a href="../blogs.html">Blogs</a>
+        </div>
+        <a href="#resume" class="navbar-resume">
+            Resume
+            <span></span>
+        </a>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content">
+
+        <!-- Blog Card -->
+        <div class="blog-card">
+            <img src="https://via.placeholder.com/800x400.png?text=Basic+Power+Algorithm" alt="Basic Power Algorithm Image">
+            <h2>Basic Power Algorithm</h2>
+            <h3>Algorithm</h3>
+            <pre><code class="language-c">double power(double base, int exponent) {
+    double result = 1.0;
+    for (int i = 0; i < exponent; i++) {
+        result *= base;
+    }
+    return result;
+}</code></pre>
+            <h3>Explanation</h3>
+            <p>The basic power algorithm computes the power of a base raised to an exponent by multiplying the base
+                exponent times. The time complexity of this algorithm is O(n), where n is the exponent.</p>
+            <h3>Dry Run</h3>
+            <p>Let's take an example: base = 2, exponent = 5.</p>
+            <ul>
+                <li>Initialize result = 1.0.</li>
+                <li>Loop from i = 0 to i = 4 (5 iterations):</li>
+                <ul>
+                    <li>Iteration 1: result = 1.0 * 2 = 2.0</li>
+                    <li>Iteration 2: result = 2.0 * 2 = 4.0</li>
+                    <li>Iteration 3: result = 4.0 * 2 = 8.0</li>
+                    <li>Iteration 4: result = 8.0 * 2 = 16.0</li>
+                    <li>Iteration 5: result = 16.0 * 2 = 32.0</li>
+                </ul>
+            </ul>
+            <p>The final result is 32.0.</p>
+            <div class="pros-cons">
+                <div>
+                    <h3>Pros</h3>
+                    <ul>
+                        <li>Simple to implement and understand.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Cons</h3>
+                    <ul>
+                        <li>Inefficient for large exponents due to linear time complexity.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Card -->
+        <div class="blog-card">
+            <img src="https://via.placeholder.com/800x400.png?text=Optimized+Power+Algorithm" alt="Optimized Power Algorithm Image">
+            <h2>Optimized Power Algorithm (Exponentiation by Squaring)</h2>
+            <h3>Algorithm</h3>
+            <pre><code class="language-c">double power(double base, int exponent) {
+    if (exponent == 0) {
+        return 1.0;
+    }
+    double half = power(base, exponent / 2);
+    if (exponent % 2 == 0) {
+        return half * half;
+    } else {
+        return half * half * base;
+    }
+}</code></pre>
+            <h3>Explanation</h3>
+            <p>The optimized power algorithm, also known as Exponentiation by Squaring, reduces the time complexity to
+                O(log n). It divides the problem into smaller subproblems and uses the property:</p>
+            <ul>
+                <li>If the exponent is even: a<sup>n</sup> = (a<sup>n/2</sup>)<sup>2</sup></li>
+                <li>If the exponent is odd: a<sup>n</sup> = a × (a<sup>(n−1)/2</sup>)<sup>2</sup></li>
+            </ul>
+            <h3>Dry Run</h3>
+            <p>Let's take an example: base = 2, exponent = 5.</p>
+            <ul>
+                <li>Call power(2, 5):</li>
+                <ul>
+                    <li>Call power(2, 2):</li>
+                    <ul>
+                        <li>Call power(2, 1):</li>
+                        <ul>
+                            <li>Call power(2, 0): return 1.0</li>
+                        </ul>
+                        <li>Return 1.0 * 1.0 * 2 = 2.0</li>
+                    </ul>
+                    <li>Return 2.0 * 2.0 = 4.0</li>
+                </ul>
+                <li>Return 4.0 * 4.0 * 2 = 32.0</li>
+            </ul>
+            <p>The final result is 32.0.</p>
+            <div class="pros-cons">
+                <div>
+                    <h3>Pros</h3>
+                    <ul>
+                        <li>Much more efficient for large exponents due to logarithmic time complexity.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Cons</h3>
+                    <ul>
+                        <li>Slightly more complex to implement.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="conclusion">
+                Conclusion: The optimized power algorithm is significantly faster for large exponents and should be
+                preferred over the basic power algorithm in such cases.
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
