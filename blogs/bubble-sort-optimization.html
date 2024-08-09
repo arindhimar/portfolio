@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Bubble Sort and Its Optimizations in C++</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        :root {
+            --cursor-color: white;
+            --primary-color: white;
+            --secondary-color: #888;
+            --background-color: #222;
+            --accent-color: #00ffcc;
+            --border-color: rgb(54, 56, 55);
+            --card-color: #464141;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--primary-color);
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: var(--background-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 20px;
+            margin-left: auto;
+        }
+
+        .navbar-menu a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .navbar-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        .navbar-resume {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: var(--primary-color);
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            margin: 0 6% 0 1%;
+            transition: color 0.3s;
+        }
+
+        .navbar-resume::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0%;
+            width: 100%;
+            background-color: var(--accent-color);
+            transition: height 0.35s ease;
+            z-index: -1;
+        }
+
+        .navbar-resume:hover::before {
+            height: 100%;
+        }
+
+        .navbar-resume:hover {
+            color: var(--background-color);
+        }
+
+        .navbar-resume span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            margin-top: 80px;
+            padding: 20px;
+        }
+
+        .blog-card {
+            background-color: var(--card-color);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .blog-card h2 {
+            font-size: 28px;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .blog-card h3 {
+            font-size: 22px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .blog-card pre {
+            background-color: #222;
+            padding: 15px;
+            border-radius: 5px;
+            color: var(--primary-color);
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .blog-card p {
+            font-size: 18px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .blog-card ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .blog-card ul li {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+            line-height: 1.6;
+        }
+
+        .blog-card .pros-cons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .blog-card .pros-cons div {
+            width: 48%;
+        }
+
+        .blog-card .pros-cons div ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .blog-card .pros-cons div ul li {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .blog-card .conclusion {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .blog-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Ensure SVG scales within its container */
+        .blog-card svg {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            background: #FFFFFF;
+            /* Preserve background if needed */
+            display: block;
+            /* Remove any extra space around SVG */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="navbar-logo">B</div>
+        <div class="navbar-menu">
+            <a href="../index.html">Home</a>
+            <a href="../blogs.html">Blogs</a>
+        </div>
+        <a href="#resume" class="navbar-resume">
+            Resume
+            <span></span>
+        </a>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content">
+
+        <!-- Blog Card for Bubble Sort -->
+        <div class="blog-card">
+            <img src="https://via.placeholder.com/800x400.png?text=Bubble+Sort+Algorithm" alt="Bubble Sort Algorithm">
+            <h2>Understanding Bubble Sort and Its Optimizations in C++</h2>
+
+            <h3>Basic Bubble Sort Algorithm</h3>
+            <pre><code class="language-cpp">void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}</code></pre>
+
+            <h3>Explanation</h3>
+            <svg xmlns="http://www.w3.org/2000/svg"   xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="621px" preserveAspectRatio="none" style="width:246px;height:621px;background:#FFFFFF;" version="1.1" viewBox="0 0 246 621" width="246px" zoomAndPan="magnify"><defs/><g><ellipse cx="92.9736" cy="20" fill="#222222" rx="10" ry="10" style="stroke:#222222;stroke-width:1.0;"/><rect fill="#FDF6E3" height="33.9688" rx="12.5" ry="12.5" style="stroke:#657B83;stroke-width:0.5;" width="89.5508" x="48.1982" y="50"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="69.5508" x="58.1982" y="71.1387">Initial Array</text><rect fill="#FDF6E3" height="33.9688" rx="12.5" ry="12.5" style="stroke:#657B83;stroke-width:0.5;" width="110.8906" x="37.5283" y="147.9688"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="90.8906" x="47.5283" y="169.1074">For i = 0 to n-2</text><rect fill="#FDF6E3" height="33.9688" rx="12.5" ry="12.5" style="stroke:#657B83;stroke-width:0.5;" width="118.5547" x="33.6963" y="245.9375"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="98.5547" x="43.6963" y="267.0762">For j = 0 to n-i-2</text><rect fill="#FDF6E3" height="33.9688" rx="12.5" ry="12.5" style="stroke:#657B83;stroke-width:0.5;" width="163.9473" x="11" y="348.3086"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="143.9473" x="21" y="369.4473">Swap arr[j] and arr[j+1]</text><polygon fill="#FDF6E3" points="46.417,299.9063,139.5303,299.9063,151.5303,311.9063,139.5303,323.9063,46.417,323.9063,34.417,311.9063,46.417,299.9063" style="stroke:#657B83;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="19.0083" x="96.9736" y="334.1167">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="93.1133" x="46.417" y="315.7144">arr[j] &gt; arr[j+1]?</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="13.7017" x="151.5303" y="309.312">no</text><polygon fill="#FDF6E3" points="92.9736,402.2773,104.9736,414.2773,92.9736,426.2773,80.9736,414.2773,92.9736,402.2773" style="stroke:#657B83;stroke-width:0.5;"/><polygon fill="#FDF6E3" points="92.9736,201.9375,104.9736,213.9375,92.9736,225.9375,80.9736,213.9375,92.9736,201.9375" style="stroke:#657B83;stroke-width:0.5;"/><polygon fill="#FDF6E3" points="70.8582,446.2773,115.0891,446.2773,127.0891,458.2773,115.0891,470.2773,70.8582,470.2773,58.8582,458.2773,70.8582,446.2773" style="stroke:#657B83;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="44.231" x="70.8582" y="462.0854">j &lt; n-i-2</text><polygon fill="#FDF6E3" points="92.9736,103.9688,104.9736,115.9688,92.9736,127.9688,80.9736,115.9688,92.9736,103.9688" style="stroke:#657B83;stroke-width:0.5;"/><polygon fill="#FDF6E3" points="74.3708,490.2773,111.5764,490.2773,123.5764,502.2773,111.5764,514.2773,74.3708,514.2773,62.3708,502.2773,74.3708,490.2773" style="stroke:#657B83;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37.2056" x="74.3708" y="506.0854">i &lt; n-2</text><rect fill="#FDF6E3" height="33.9688" rx="12.5" ry="12.5" style="stroke:#657B83;stroke-width:0.5;" width="42.8047" x="71.5713" y="534.2773"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="22.8047" x="81.5713" y="555.416">End</text><ellipse cx="92.9736" cy="599.2461" fill="none" rx="11" ry="11" style="stroke:#222222;stroke-width:1.0;"/><ellipse cx="92.9736" cy="599.2461" fill="#222222" rx="6" ry="6" style="stroke:#222222;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="92.9736" x2="92.9736" y1="30" y2="50"/><polygon fill="#859900" points="88.9736,40,92.9736,50,96.9736,40,92.9736,44" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="92.9736" x2="92.9736" y1="323.9063" y2="348.3086"/><polygon fill="#859900" points="88.9736,338.3086,92.9736,348.3086,96.9736,338.3086,92.9736,342.3086" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="151.5303" x2="184.9473" y1="311.9063" y2="311.9063"/><polygon fill="#859900" points="180.9473,355.293,184.9473,365.293,188.9473,355.293,184.9473,359.293" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="184.9473" x2="184.9473" y1="311.9063" y2="414.2773"/><line style="stroke:#859900;stroke-width:1.0;" x1="184.9473" x2="104.9736" y1="414.2773" y2="414.2773"/><polygon fill="#859900" points="114.9736,410.2773,104.9736,414.2773,114.9736,418.2773,110.9736,414.2773" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="92.9736" x2="92.9736" y1="382.2773" y2="402.2773"/><polygon fill="#859900" points="88.9736,392.2773,92.9736,402.2773,96.9736,392.2773,92.9736,396.2773" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="92.9736" x2="92.9736" y1="279.9063" y2="299.9063"/><polygon fill="#859900" points="88.9736,289.9063,92.9736,299.9063,96.9736,289.9063,92.9736,293.9063" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="92.9736" x2="92.9736" y1="225.9375" y2="245.9375"/><polygon fill="#859900" points="88.9736,235.9375,92.9736,245.9375,96.9736,235.9375,92.9736,239.9375" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="127.0891" x2="202.9473" y1="458.2773" y2="458.2773"/><polygon fill="#859900" points="198.9473,340.8086,202.9473,330.8086,206.9473,340.8086,202.9473,336.8086" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="202.9473" x2="202.9473" y1="213.9375" y2="458.2773"/><line style="stroke:#859900;stroke-width:1.0;" x1="202.9473" x2="104.9736" y1="213.9375" y2="213.9375"/><polygon fill="#859900" points="114.9736,209.9375,104.9736,213.9375,114.9736,217.9375,110.9736,213.9375" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="92.9736" x2="92.9736" y1="426.2773" y2="446.2773"/><polygon fill="#859900" points="88.9736,436.2773,92.9736,446.2773,96.9736,436.2773,92.9736,440.2773" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="92.9736" x2="92.9736" y1="181.9375" y2="201.9375"/><polygon fill="#859900" points="88.9736,191.9375,92.9736,201.9375,96.9736,191.9375,92.9736,195.9375" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="92.9736" x2="92.9736" y1="127.9688" y2="147.9688"/><polygon fill="#859900" points="88.9736,137.9688,92.9736,147.9688,96.9736,137.9688,92.9736,141.9688" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="123.5764" x2="220.9473" y1="502.2773" y2="502.2773"/><polygon fill="#859900" points="216.9473,306.3242,220.9473,296.3242,224.9473,306.3242,220.9473,302.3242" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="220.9473" x2="220.9473" y1="115.9688" y2="502.2773"/><line style="stroke:#859900;stroke-width:1.0;" x1="220.9473" x2="104.9736" y1="115.9688" y2="115.9688"/><polygon fill="#859900" points="114.9736,111.9688,104.9736,115.9688,114.9736,119.9688,110.9736,115.9688" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="92.9736" x2="92.9736" y1="470.2773" y2="490.2773"/><polygon fill="#859900" points="88.9736,480.2773,92.9736,490.2773,96.9736,480.2773,92.9736,484.2773" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="92.9736" x2="92.9736" y1="83.9688" y2="103.9688"/><polygon fill="#859900" points="88.9736,93.9688,92.9736,103.9688,96.9736,93.9688,92.9736,97.9688" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="92.9736" x2="92.9736" y1="514.2773" y2="534.2773"/><polygon fill="#859900" points="88.9736,524.2773,92.9736,534.2773,96.9736,524.2773,92.9736,528.2773" style="stroke:#859900;stroke-width:1.0;"/><line style="stroke:#859900;stroke-width:1.0;" x1="92.9736" x2="92.9736" y1="568.2461" y2="588.2461"/><polygon fill="#859900" points="88.9736,578.2461,92.9736,588.2461,96.9736,578.2461,92.9736,582.2461" style="stroke:#859900;stroke-width:1.0;"/><!--SRC=[LOzBJyCm48Jl_XKZSMWYX1H0BMt2GvGs4kSUKGzEuf1DWnrjNA88yTzn7ah5nR9dnj_iBh1JEMa5MoWqjgiKSiF3AwzCcnQIhMXEf6l9yWiojVHDjiEF0BOoFNsoEUlipLJkqrMyYrVx-zund2cUrDNo8LdtwYkpQITnlTniWa3y2h5md8PIRCz9ujeFXYtYIxNjp_1TaoLPzGZPHO9LhQHro31sCC8J0bW3VNCNEN5s9x-y-3Gc0ChXIUQFyeXd39Vhs-EBto-kuNMgyOUO8nnQMMEAIftDuP6ZgaR1qsQCAvrHFa-0jY2taLVYSQpsnN-31iF9uLvdaTlLr7y0]--></g></svg>
+            <p>The basic Bubble Sort algorithm sorts an array by repeatedly comparing adjacent elements and swapping them if they are in the wrong order. This process continues until the entire array is sorted. The algorithm performs <code>n−1</code> passes, where <code>n</code> is the number of elements in the array. The time complexity of this algorithm is <code>O(n<sup>2</sup>)</code>, which makes it inefficient for large datasets.</p>
+
+            <h3>Dry Run</h3>
+            <p>Let's take an example: <code>arr = {64, 34, 25, 12, 22, 11, 90}</code>.</p>
+            <ul>
+                <li><strong>Initial Array:</strong> {64, 34, 25, 12, 22, 11, 90}</li>
+                <li><strong>First Pass:</strong>
+                    <ul>
+                        <li>Compare 64 and 34 -> swap -> {34, 64, 25, 12, 22, 11, 90}</li>
+                        <li>Compare 64 and 25 -> swap -> {34, 25, 64, 12, 22, 11, 90}</li>
+                        <li>Compare 64 and 12 -> swap -> {34, 25, 12, 64, 22, 11, 90}</li>
+                        <li>Compare 64 and 22 -> swap -> {34, 25, 12, 22, 64, 11, 90}</li>
+                        <li>Compare 64 and 11 -> swap -> {34, 25, 12, 22, 11, 64, 90}</li>
+                        <li>Compare 64 and 90 -> no swap -> {34, 25, 12, 22, 11, 64, 90}</li>
+                    </ul>
+                </li>
+                <li><strong>Second Pass:</strong>
+                    <ul>
+                        <li>Compare 34 and 25 -> swap -> {25, 34, 12, 22, 11, 64, 90}</li>
+                        <li>Compare 34 and 12 -> swap -> {25, 12, 34, 22, 11, 64, 90}</li>
+                        <li>Compare 34 and 22 -> swap -> {25, 12, 22, 34, 11, 64, 90}</li>
+                        <li>Compare 34 and 11 -> swap -> {25, 12, 22, 11, 34, 64, 90}</li>
+                        <li>Compare 34 and 64 -> no swap -> {25, 12, 22, 11, 34, 64, 90}</li>
+                    </ul>
+                </li>
+                <li><strong>Third Pass:</strong>
+                    <ul>
+                        <li>Compare 25 and 12 -> swap -> {12, 25, 22, 11, 34, 64, 90}</li>
+                        <li>Compare 25 and 22 -> swap -> {12, 22, 25, 11, 34, 64, 90}</li>
+                        <li>Compare 25 and 11 -> swap -> {12, 22, 11, 25, 34, 64, 90}</li>
+                        <li>Compare 25 and 34 -> no swap -> {12, 22, 11, 25, 34, 64, 90}</li>
+                    </ul>
+                </li>
+                <li><strong>Fourth Pass:</strong>
+                    <ul>
+                        <li>Compare 12 and 22 -> no swap -> {12, 22, 11, 25, 34, 64, 90}</li>
+                        <li>Compare 22 and 11 -> swap -> {12, 11, 22, 25, 34, 64, 90}</li>
+                        <li>Compare 22 and 25 -> no swap -> {12, 11, 22, 25, 34, 64, 90}</li>
+                    </ul>
+                </li>
+                <li><strong>Fifth Pass:</strong>
+                    <ul>
+                        <li>Compare 12 and 11 -> swap -> {11, 12, 22, 25, 34, 64, 90}</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>The array is now sorted, and Bubble Sort completes its execution.</p>
+
+            <h3>Pros and Cons</h3>
+            <div class="pros-cons">
+                <div>
+                    <h4>Pros:</h4>
+                    <ul>
+                        <li>Simple to implement and understand.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Cons:</h4>
+                    <ul>
+                        <li>Inefficient for large datasets due to its <code>O(n<sup>2</sup>)</code> time complexity.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Optimized Bubble Sort by Early Termination</h3>
+            <pre><code class="language-cpp">void optimizedBubbleSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        bool swapped = false;
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                swapped = true;
+            }
+        }
+        if (!swapped) break; // Early termination if no swaps occurred
+    }
+}</code></pre>
+
+            <h3>Explanation</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="862px" preserveAspectRatio="none" style="width:302px;height:862px;background:#FFFFFF;" version="1.1" viewBox="0 0 302 862" width="302px" zoomAndPan="magnify"><defs/><g><ellipse cx="148.502" cy="20" fill="#222222" rx="10" ry="10" style="stroke:#222222;stroke-width:1.0;"/><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="89.5508" x="103.7266" y="50"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="69.5508" x="113.7266" y="71.1387">Initial Array</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="110.8906" x="93.0566" y="147.9688"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="90.8906" x="103.0566" y="169.1074">For i = 0 to n-2</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="143.4043" x="76.7998" y="201.9375"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="123.4043" x="86.7998" y="223.0762">Set swapped = false</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="118.5547" x="89.2246" y="299.9063"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="98.5547" x="99.2246" y="321.0449">For j = 0 to n-i-2</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="163.9473" x="66.5283" y="402.2773"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="143.9473" x="76.5283" y="423.416">Swap arr[j] and arr[j+1]</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="139.4844" x="78.7598" y="471.2461"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="119.4844" x="88.7598" y="492.3848">Set swapped = true</text><polygon fill="#F1F1F1" points="101.9453,353.875,195.0586,353.875,207.0586,365.875,195.0586,377.875,101.9453,377.875,89.9453,365.875,101.9453,353.875" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="19.0083" x="152.502" y="388.0854">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="93.1133" x="101.9453" y="369.6831">arr[j] &gt; arr[j+1]?</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="13.7017" x="207.0586" y="363.2808">no</text><polygon fill="#F1F1F1" points="148.502,525.2148,160.502,537.2148,148.502,549.2148,136.502,537.2148,148.502,525.2148" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#F1F1F1" points="148.502,255.9063,160.502,267.9063,148.502,279.9063,136.502,267.9063,148.502,255.9063" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#F1F1F1" points="126.3865,569.2148,170.6174,569.2148,182.6174,581.2148,170.6174,593.2148,126.3865,593.2148,114.3865,581.2148,126.3865,569.2148" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="44.231" x="126.3865" y="585.0229">j &lt; n-i-2</text><polygon fill="#F1F1F1" points="120.9912,613.2148,176.0127,613.2148,188.0127,625.2148,176.0127,637.2148,120.9912,637.2148,108.9912,625.2148,120.9912,613.2148" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="55.0215" x="120.9912" y="629.0229">swapped?</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="19.0083" x="89.9829" y="622.6206">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="13.7017" x="188.0127" y="622.6206">no</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="151.7188" x="11" y="647.2148"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="131.7188" x="21" y="668.3535">Continue to next pass</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="54.8516" x="182.7188" y="647.2148"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="34.8516" x="192.7188" y="668.3535">Break</text><polygon fill="#F1F1F1" points="148.502,687.1836,160.502,699.1836,148.502,711.1836,136.502,699.1836,148.502,687.1836" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#F1F1F1" points="148.502,103.9688,160.502,115.9688,148.502,127.9688,136.502,115.9688,148.502,103.9688" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#F1F1F1" points="129.8992,731.1836,167.1047,731.1836,179.1047,743.1836,167.1047,755.1836,129.8992,755.1836,117.8992,743.1836,129.8992,731.1836" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37.2056" x="129.8992" y="746.9917">i &lt; n-2</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="42.8047" x="127.0996" y="775.1836"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="22.8047" x="137.0996" y="796.3223">End</text><ellipse cx="148.502" cy="840.1523" fill="none" rx="11" ry="11" style="stroke:#222222;stroke-width:1.0;"/><ellipse cx="148.502" cy="840.1523" fill="#222222" rx="6" ry="6" style="stroke:#222222;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.502" x2="148.502" y1="30" y2="50"/><polygon fill="#181818" points="144.502,40,148.502,50,152.502,40,148.502,44" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.502" x2="148.502" y1="181.9375" y2="201.9375"/><polygon fill="#181818" points="144.502,191.9375,148.502,201.9375,152.502,191.9375,148.502,195.9375" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.502" x2="148.502" y1="436.2461" y2="471.2461"/><polygon fill="#181818" points="144.502,461.2461,148.502,471.2461,152.502,461.2461,148.502,465.2461" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.502" x2="148.502" y1="377.875" y2="402.2773"/><polygon fill="#181818" points="144.502,392.2773,148.502,402.2773,152.502,392.2773,148.502,396.2773" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="207.0586" x2="240.4756" y1="365.875" y2="365.875"/><polygon fill="#181818" points="236.4756,443.7461,240.4756,453.7461,244.4756,443.7461,240.4756,447.7461" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="240.4756" x2="240.4756" y1="365.875" y2="537.2148"/><line style="stroke:#181818;stroke-width:1.0;" x1="240.4756" x2="160.502" y1="537.2148" y2="537.2148"/><polygon fill="#181818" points="170.502,533.2148,160.502,537.2148,170.502,541.2148,166.502,537.2148" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.502" x2="148.502" y1="505.2148" y2="525.2148"/><polygon fill="#181818" points="144.502,515.2148,148.502,525.2148,152.502,515.2148,148.502,519.2148" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.502" x2="148.502" y1="333.875" y2="353.875"/><polygon fill="#181818" points="144.502,343.875,148.502,353.875,152.502,343.875,148.502,347.875" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.502" x2="148.502" y1="279.9063" y2="299.9063"/><polygon fill="#181818" points="144.502,289.9063,148.502,299.9063,152.502,289.9063,148.502,293.9063" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="182.6174" x2="258.4756" y1="581.2148" y2="581.2148"/><polygon fill="#181818" points="254.4756,429.2617,258.4756,419.2617,262.4756,429.2617,258.4756,425.2617" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="258.4756" x2="258.4756" y1="267.9063" y2="581.2148"/><line style="stroke:#181818;stroke-width:1.0;" x1="258.4756" x2="160.502" y1="267.9063" y2="267.9063"/><polygon fill="#181818" points="170.502,263.9063,160.502,267.9063,170.502,271.9063,166.502,267.9063" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.502" x2="148.502" y1="549.2148" y2="569.2148"/><polygon fill="#181818" points="144.502,559.2148,148.502,569.2148,152.502,559.2148,148.502,563.2148" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.502" x2="148.502" y1="235.9063" y2="255.9063"/><polygon fill="#181818" points="144.502,245.9063,148.502,255.9063,152.502,245.9063,148.502,249.9063" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="108.9912" x2="86.8594" y1="625.2148" y2="625.2148"/><line style="stroke:#181818;stroke-width:1.0;" x1="86.8594" x2="86.8594" y1="625.2148" y2="647.2148"/><polygon fill="#181818" points="82.8594,637.2148,86.8594,647.2148,90.8594,637.2148,86.8594,641.2148" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="188.0127" x2="210.1445" y1="625.2148" y2="625.2148"/><line style="stroke:#181818;stroke-width:1.0;" x1="210.1445" x2="210.1445" y1="625.2148" y2="647.2148"/><polygon fill="#181818" points="206.1445,637.2148,210.1445,647.2148,214.1445,637.2148,210.1445,641.2148" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="86.8594" x2="86.8594" y1="681.1836" y2="699.1836"/><line style="stroke:#181818;stroke-width:1.0;" x1="86.8594" x2="136.502" y1="699.1836" y2="699.1836"/><polygon fill="#181818" points="126.502,695.1836,136.502,699.1836,126.502,703.1836,130.502,699.1836" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="210.1445" x2="210.1445" y1="681.1836" y2="699.1836"/><line style="stroke:#181818;stroke-width:1.0;" x1="210.1445" x2="160.502" y1="699.1836" y2="699.1836"/><polygon fill="#181818" points="170.502,695.1836,160.502,699.1836,170.502,703.1836,166.502,699.1836" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.502" x2="148.502" y1="593.2148" y2="613.2148"/><polygon fill="#181818" points="144.502,603.2148,148.502,613.2148,152.502,603.2148,148.502,607.2148" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.502" x2="148.502" y1="127.9688" y2="147.9688"/><polygon fill="#181818" points="144.502,137.9688,148.502,147.9688,152.502,137.9688,148.502,141.9688" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="179.1047" x2="276.4756" y1="743.1836" y2="743.1836"/><polygon fill="#181818" points="272.4756,426.7773,276.4756,416.7773,280.4756,426.7773,276.4756,422.7773" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="276.4756" x2="276.4756" y1="115.9688" y2="743.1836"/><line style="stroke:#181818;stroke-width:1.0;" x1="276.4756" x2="160.502" y1="115.9688" y2="115.9688"/><polygon fill="#181818" points="170.502,111.9688,160.502,115.9688,170.502,119.9688,166.502,115.9688" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.502" x2="148.502" y1="711.1836" y2="731.1836"/><polygon fill="#181818" points="144.502,721.1836,148.502,731.1836,152.502,721.1836,148.502,725.1836" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.502" x2="148.502" y1="83.9688" y2="103.9688"/><polygon fill="#181818" points="144.502,93.9688,148.502,103.9688,152.502,93.9688,148.502,97.9688" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.502" x2="148.502" y1="755.1836" y2="775.1836"/><polygon fill="#181818" points="144.502,765.1836,148.502,775.1836,152.502,765.1836,148.502,769.1836" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="148.502" x2="148.502" y1="809.1523" y2="829.1523"/><polygon fill="#181818" points="144.502,819.1523,148.502,829.1523,152.502,819.1523,148.502,823.1523" style="stroke:#181818;stroke-width:1.0;"/><!--SRC=[POzDIyGm48Rl_HNliOi8wZ7r0rrMyEnHzZ3GAJkr964ooxh_tYGjbU8jl1_pl4b6Qetxy6924rvLwTerof796i2z1uNW2NUm07_xq1NnamtfGZ5odws1fiH5NrjBR_phoTm4P41Bgb_Z4S-eZvlxuyiETcAFziffLsC5aW5OekJxDTojWSqAqpFF5kSvQ7sOBx7lPLZ7uNAIARiZ7kTL9LGsBOV-Bt7xu4tycUj7-CSGAQL2sdBScp9zLxqIjpofl4np1zztJR8GVm40]--></g></svg>
+            <p>The optimized Bubble Sort algorithm improves the basic version by checking if any swaps were made during a pass. If no swaps were made, the array is already sorted, and the algorithm can terminate early. This reduces unnecessary passes, improving efficiency for nearly sorted arrays. The time complexity in the best case (when the array is already sorted) is <code>O(n)</code>.</p>
+
+            <h3>Dry Run</h3>
+            <p>Let's take an example: <code>arr = {12, 11, 22, 25, 34, 64, 90}</code> (almost sorted).</p>
+            <ul>
+                <li><strong>Initial Array:</strong> {12, 11, 22, 25, 34, 64, 90}</li>
+                <li><strong>First Pass:</strong>
+                    <ul>
+                        <li>Compare 12 and 11 -> swap -> {11, 12, 22, 25, 34, 64, 90}</li>
+                        <li>Compare 12 and 22 -> no swap -> {11, 12, 22, 25, 34, 64, 90}</li>
+                        <li>Continue comparing remaining pairs -> no swaps -> {11, 12, 22, 25, 34, 64, 90}</li>
+                    </ul>
+                </li>
+                <li><strong>Second Pass:</strong>
+                    <ul>
+                        <li>No swaps are made, so the algorithm terminates early.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Pros and Cons</h3>
+            <div class="pros-cons">
+                <div>
+                    <h4>Pros:</h4>
+                    <ul>
+                        <li>More efficient for nearly sorted arrays; early termination reduces unnecessary passes.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Cons:</h4>
+                    <ul>
+                        <li>Still <code>O(n<sup>2</sup>)</code> in the worst case, but offers better performance in practical scenarios.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Bidirectional Bubble Sort (Cocktail Shaker Sort)</h3>
+            <pre><code class="language-cpp">void cocktailShakerSort(int arr[], int n) {
+    bool swapped = true;
+    int start = 0;
+    int end = n - 1;
+
+    while (swapped) {
+        swapped = false;
+
+        // Forward pass
+        for (int i = start; i < end; i++) {
+            if (arr[i] > arr[i + 1]) {
+                int temp = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = temp;
+                swapped = true;
+            }
+        }
+
+        if (!swapped) break;
+
+        swapped = false;
+        end--;
+
+        // Backward pass
+        for (int i = end - 1; i >= start; i--) {
+            if (arr[i] > arr[i + 1]) {
+                int temp = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = temp;
+                swapped = true;
+            }
+        }
+
+        start++;
+    }
+}</code></pre>
+
+            <h3>Explanation</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="1494px" preserveAspectRatio="none" style="width:327px;height:1494px;background:#FFFFFF;" version="1.1" viewBox="0 0 327 1494" width="327px" zoomAndPan="magnify"><defs/><g><ellipse cx="172.083" cy="20" fill="#222222" rx="10" ry="10" style="stroke:#222222;stroke-width:1.0;"/><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="89.5508" x="127.3076" y="50"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="69.5508" x="137.3076" y="71.1387">Initial Array</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="139.4844" x="102.3408" y="103.9688"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="119.4844" x="112.3408" y="125.1074">Set swapped = true</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="96.7871" x="123.6895" y="157.9375"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="76.7871" x="133.6895" y="179.0762">Set start = 0</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="103.3789" x="120.3936" y="211.9063"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="83.3789" x="130.3936" y="233.0449">Set end = n-1</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="143.4043" x="100.3809" y="309.875"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="123.4043" x="110.3809" y="331.0137">Set swapped = false</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="146.2051" x="98.9805" y="407.8438"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="126.2051" x="108.9805" y="428.9824">For i = start to end-1</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="163.9473" x="90.1094" y="510.2148"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="143.9473" x="100.1094" y="531.3535">Swap arr[i] and arr[i+1]</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="139.4844" x="102.3408" y="579.1836"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="119.4844" x="112.3408" y="600.3223">Set swapped = true</text><polygon fill="#F1F1F1" points="125.5264,461.8125,218.6396,461.8125,230.6396,473.8125,218.6396,485.8125,125.5264,485.8125,113.5264,473.8125,125.5264,461.8125" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="19.0083" x="176.083" y="496.0229">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="93.1133" x="125.5264" y="477.6206">arr[i] &gt; arr[i+1]?</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="13.7017" x="230.6396" y="471.2183">no</text><polygon fill="#F1F1F1" points="172.083,633.1523,184.083,645.1523,172.083,657.1523,160.083,645.1523,172.083,633.1523" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#F1F1F1" points="172.083,363.8438,184.083,375.8438,172.083,387.8438,160.083,375.8438,172.083,363.8438" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#F1F1F1" points="146.6052,677.1523,197.5608,677.1523,209.5608,689.1523,197.5608,701.1523,146.6052,701.1523,134.6052,689.1523,146.6052,677.1523" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="50.9556" x="146.6052" y="692.9604">i &lt; end-1</text><polygon fill="#F1F1F1" points="144.5723,721.1523,199.5938,721.1523,211.5938,733.1523,199.5938,745.1523,144.5723,745.1523,132.5723,733.1523,144.5723,721.1523" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="55.0215" x="144.5723" y="736.9604">swapped?</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="19.0083" x="113.564" y="730.5581">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="13.7017" x="211.5938" y="730.5581">no</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="183.1602" x="11" y="755.1523"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="163.1602" x="21" y="776.291">Continue to backward pass</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="54.8516" x="214.1602" y="755.1523"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="34.8516" x="224.1602" y="776.291">Break</text><polygon fill="#F1F1F1" points="172.083,795.1211,184.083,807.1211,172.083,819.1211,160.083,807.1211,172.083,795.1211" style="stroke:#181818;stroke-width:0.5;"/><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="143.4043" x="100.3809" y="844.1367"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="123.4043" x="110.3809" y="865.2754">Set swapped = false</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="118.3789" x="112.8936" y="898.1055"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="98.3789" x="122.8936" y="919.2441">Set end = end-1</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="182.3984" x="80.8838" y="996.0742"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="162.3984" x="90.8838" y="1017.2129">For i = end-1 down to start</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="163.9473" x="90.1094" y="1098.4453"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="143.9473" x="100.1094" y="1119.584">Swap arr[i] and arr[i+1]</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="139.4844" x="102.3408" y="1167.4141"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="119.4844" x="112.3408" y="1188.5527">Set swapped = true</text><polygon fill="#F1F1F1" points="125.5264,1050.043,218.6396,1050.043,230.6396,1062.043,218.6396,1074.043,125.5264,1074.043,113.5264,1062.043,125.5264,1050.043" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="19.0083" x="176.083" y="1084.2534">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="93.1133" x="125.5264" y="1065.8511">arr[i] &gt; arr[i+1]?</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="13.7017" x="230.6396" y="1059.4487">no</text><polygon fill="#F1F1F1" points="172.083,1221.3828,184.083,1233.3828,172.083,1245.3828,160.083,1233.3828,172.083,1221.3828" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#F1F1F1" points="172.083,952.0742,184.083,964.0742,172.083,976.0742,160.083,964.0742,172.083,952.0742" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#F1F1F1" points="145.0315,1265.3828,199.1345,1265.3828,211.1345,1277.3828,199.1345,1289.3828,145.0315,1289.3828,133.0315,1277.3828,145.0315,1265.3828" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="54.103" x="145.0315" y="1281.1909">i &gt;= start</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="134.791" x="104.6875" y="1309.3828"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="114.791" x="114.6875" y="1330.5215">Set start = start+1</text><polygon fill="#F1F1F1" points="172.083,265.875,184.083,277.875,172.083,289.875,160.083,277.875,172.083,265.875" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#F1F1F1" points="147.4915,1363.3516,196.6746,1363.3516,208.6746,1375.3516,196.6746,1387.3516,147.4915,1387.3516,135.4915,1375.3516,147.4915,1363.3516" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="49.1831" x="147.4915" y="1379.1597">swapped</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="42.8047" x="150.6807" y="1407.3516"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="22.8047" x="160.6807" y="1428.4902">End</text><ellipse cx="172.083" cy="1472.3203" fill="none" rx="11" ry="11" style="stroke:#222222;stroke-width:1.0;"/><ellipse cx="172.083" cy="1472.3203" fill="#222222" rx="6" ry="6" style="stroke:#222222;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="30" y2="50"/><polygon fill="#181818" points="168.083,40,172.083,50,176.083,40,172.083,44" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="83.9688" y2="103.9688"/><polygon fill="#181818" points="168.083,93.9688,172.083,103.9688,176.083,93.9688,172.083,97.9688" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="137.9375" y2="157.9375"/><polygon fill="#181818" points="168.083,147.9375,172.083,157.9375,176.083,147.9375,172.083,151.9375" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="191.9063" y2="211.9063"/><polygon fill="#181818" points="168.083,201.9063,172.083,211.9063,176.083,201.9063,172.083,205.9063" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="544.1836" y2="579.1836"/><polygon fill="#181818" points="168.083,569.1836,172.083,579.1836,176.083,569.1836,172.083,573.1836" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="485.8125" y2="510.2148"/><polygon fill="#181818" points="168.083,500.2148,172.083,510.2148,176.083,500.2148,172.083,504.2148" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="230.6396" x2="264.0566" y1="473.8125" y2="473.8125"/><polygon fill="#181818" points="260.0566,551.6836,264.0566,561.6836,268.0566,551.6836,264.0566,555.6836" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="264.0566" x2="264.0566" y1="473.8125" y2="645.1523"/><line style="stroke:#181818;stroke-width:1.0;" x1="264.0566" x2="184.083" y1="645.1523" y2="645.1523"/><polygon fill="#181818" points="194.083,641.1523,184.083,645.1523,194.083,649.1523,190.083,645.1523" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="613.1523" y2="633.1523"/><polygon fill="#181818" points="168.083,623.1523,172.083,633.1523,176.083,623.1523,172.083,627.1523" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="441.8125" y2="461.8125"/><polygon fill="#181818" points="168.083,451.8125,172.083,461.8125,176.083,451.8125,172.083,455.8125" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="387.8438" y2="407.8438"/><polygon fill="#181818" points="168.083,397.8438,172.083,407.8438,176.083,397.8438,172.083,401.8438" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="209.5608" x2="283.0117" y1="689.1523" y2="689.1523"/><polygon fill="#181818" points="279.0117,537.1992,283.0117,527.1992,287.0117,537.1992,283.0117,533.1992" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="283.0117" x2="283.0117" y1="375.8438" y2="689.1523"/><line style="stroke:#181818;stroke-width:1.0;" x1="283.0117" x2="184.083" y1="375.8438" y2="375.8438"/><polygon fill="#181818" points="194.083,371.8438,184.083,375.8438,194.083,379.8438,190.083,375.8438" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="657.1523" y2="677.1523"/><polygon fill="#181818" points="168.083,667.1523,172.083,677.1523,176.083,667.1523,172.083,671.1523" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="343.8438" y2="363.8438"/><polygon fill="#181818" points="168.083,353.8438,172.083,363.8438,176.083,353.8438,172.083,357.8438" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="132.5723" x2="102.5801" y1="733.1523" y2="733.1523"/><line style="stroke:#181818;stroke-width:1.0;" x1="102.5801" x2="102.5801" y1="733.1523" y2="755.1523"/><polygon fill="#181818" points="98.5801,745.1523,102.5801,755.1523,106.5801,745.1523,102.5801,749.1523" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="211.5938" x2="241.5859" y1="733.1523" y2="733.1523"/><line style="stroke:#181818;stroke-width:1.0;" x1="241.5859" x2="241.5859" y1="733.1523" y2="755.1523"/><polygon fill="#181818" points="237.5859,745.1523,241.5859,755.1523,245.5859,745.1523,241.5859,749.1523" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="102.5801" x2="102.5801" y1="789.1211" y2="807.1211"/><line style="stroke:#181818;stroke-width:1.0;" x1="102.5801" x2="160.083" y1="807.1211" y2="807.1211"/><polygon fill="#181818" points="150.083,803.1211,160.083,807.1211,150.083,811.1211,154.083,807.1211" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="241.5859" x2="241.5859" y1="789.1211" y2="807.1211"/><line style="stroke:#181818;stroke-width:1.0;" x1="241.5859" x2="184.083" y1="807.1211" y2="807.1211"/><polygon fill="#181818" points="194.083,803.1211,184.083,807.1211,194.083,811.1211,190.083,807.1211" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="701.1523" y2="721.1523"/><polygon fill="#181818" points="168.083,711.1523,172.083,721.1523,176.083,711.1523,172.083,715.1523" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="819.1211" y2="844.1367"/><polygon fill="#181818" points="168.083,834.1367,172.083,844.1367,176.083,834.1367,172.083,838.1367" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="878.1055" y2="898.1055"/><polygon fill="#181818" points="168.083,888.1055,172.083,898.1055,176.083,888.1055,172.083,892.1055" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="1132.4141" y2="1167.4141"/><polygon fill="#181818" points="168.083,1157.4141,172.083,1167.4141,176.083,1157.4141,172.083,1161.4141" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="1074.043" y2="1098.4453"/><polygon fill="#181818" points="168.083,1088.4453,172.083,1098.4453,176.083,1088.4453,172.083,1092.4453" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="230.6396" x2="264.0566" y1="1062.043" y2="1062.043"/><polygon fill="#181818" points="260.0566,1139.9141,264.0566,1149.9141,268.0566,1139.9141,264.0566,1143.9141" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="264.0566" x2="264.0566" y1="1062.043" y2="1233.3828"/><line style="stroke:#181818;stroke-width:1.0;" x1="264.0566" x2="184.083" y1="1233.3828" y2="1233.3828"/><polygon fill="#181818" points="194.083,1229.3828,184.083,1233.3828,194.083,1237.3828,190.083,1233.3828" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="1201.3828" y2="1221.3828"/><polygon fill="#181818" points="168.083,1211.3828,172.083,1221.3828,176.083,1211.3828,172.083,1215.3828" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="1030.043" y2="1050.043"/><polygon fill="#181818" points="168.083,1040.043,172.083,1050.043,176.083,1040.043,172.083,1044.043" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="976.0742" y2="996.0742"/><polygon fill="#181818" points="168.083,986.0742,172.083,996.0742,176.083,986.0742,172.083,990.0742" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="211.1345" x2="283.0117" y1="1277.3828" y2="1277.3828"/><polygon fill="#181818" points="279.0117,1125.4297,283.0117,1115.4297,287.0117,1125.4297,283.0117,1121.4297" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="283.0117" x2="283.0117" y1="964.0742" y2="1277.3828"/><line style="stroke:#181818;stroke-width:1.0;" x1="283.0117" x2="184.083" y1="964.0742" y2="964.0742"/><polygon fill="#181818" points="194.083,960.0742,184.083,964.0742,194.083,968.0742,190.083,964.0742" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="1245.3828" y2="1265.3828"/><polygon fill="#181818" points="168.083,1255.3828,172.083,1265.3828,176.083,1255.3828,172.083,1259.3828" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="932.0742" y2="952.0742"/><polygon fill="#181818" points="168.083,942.0742,172.083,952.0742,176.083,942.0742,172.083,946.0742" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="1289.3828" y2="1309.3828"/><polygon fill="#181818" points="168.083,1299.3828,172.083,1309.3828,176.083,1299.3828,172.083,1303.3828" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="289.875" y2="309.875"/><polygon fill="#181818" points="168.083,299.875,172.083,309.875,176.083,299.875,172.083,303.875" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="208.6746" x2="301.0117" y1="1375.3516" y2="1375.3516"/><polygon fill="#181818" points="297.0117,839.1211,301.0117,829.1211,305.0117,839.1211,301.0117,835.1211" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="301.0117" x2="301.0117" y1="277.875" y2="1375.3516"/><line style="stroke:#181818;stroke-width:1.0;" x1="301.0117" x2="184.083" y1="277.875" y2="277.875"/><polygon fill="#181818" points="194.083,273.875,184.083,277.875,194.083,281.875,190.083,277.875" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="1343.3516" y2="1363.3516"/><polygon fill="#181818" points="168.083,1353.3516,172.083,1363.3516,176.083,1353.3516,172.083,1357.3516" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="245.875" y2="265.875"/><polygon fill="#181818" points="168.083,255.875,172.083,265.875,176.083,255.875,172.083,259.875" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="1387.3516" y2="1407.3516"/><polygon fill="#181818" points="168.083,1397.3516,172.083,1407.3516,176.083,1397.3516,172.083,1401.3516" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="172.083" x2="172.083" y1="1441.3203" y2="1461.3203"/><polygon fill="#181818" points="168.083,1451.3203,172.083,1461.3203,176.083,1451.3203,172.083,1455.3203" style="stroke:#181818;stroke-width:1.0;"/><!--SRC=[pL9DJyCm3BtdL_ZOQa9YrnQ60874cIFQmL1NYrObaUEfshydJjE8Zt7dbCP-Vk_vDL6GnNGlpeh52UwPyToRxfK4uemXq02t87oYjQZuLBekTt8AS5VRtZ05GZ40FwP7d68Q1wY017ds33Or5pxnIgGashGZDCZyPlUmW_onsUxlMf03EMZE5DiCKw4a0WMAoSaAxYlWmXxQe6G96kSNfgHjnseGveETKjV2pU9AGUgf4FrsqZrw9zQTI1Tvnu_ZZ3n0m1XLxRjMzy24nrmlgd_5zINV6iwb27CJ1ZyxbS-1_hCST-K_jtNRyehokQblPvqeIgtfdjpGcoW-V080]--></g></svg>
+            <p>Bidirectional Bubble Sort, also known as Cocktail Shaker Sort, improves upon the basic Bubble Sort by sorting the array in both directions in each pass. This helps to quickly move large or small elements to their correct positions, reducing the total number of passes needed.</p>
+
+            <h3>Dry Run</h3>
+            <p>Let's take an example: <code>arr = {64, 34, 25, 12, 22, 11, 90}</code>.</p>
+            <ul>
+                <li><strong>Initial Array:</strong> {64, 34, 25, 12, 22, 11, 90}</li>
+                <li><strong>First Forward Pass:</strong>
+                    <ul>
+                        <li>Similar to the first pass in basic Bubble Sort -> {34, 25, 12, 22, 11, 64, 90}</li>
+                    </ul>
+                </li>
+                <li><strong>First Backward Pass:</strong>
+                    <ul>
+                        <li>Compare 64 and 11 -> swap -> {34, 25, 12, 22, 11, 64, 90}</li>
+                        <li>Continue comparing remaining pairs -> no further swaps.</li>
+                    </ul>
+                </li>
+                <li><strong>Subsequent Passes:</strong>
+                    <ul>
+                        <li>Forward and backward passes continue until the array is sorted.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Pros and Cons</h3>
+            <div class="pros-cons">
+                <div>
+                    <h4>Pros:</h4>
+                    <ul>
+                        <li>More balanced sorting, especially effective for nearly sorted arrays or those with large elements at the ends.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Cons:</h4>
+                    <ul>
+                        <li>Slightly more complex to implement; still <code>O(n<sup>2</sup>)</code> in the worst case.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Conclusion</h3>
+            <p>Bubble Sort is an excellent starting point for understanding sorting algorithms, but it is not suitable for large datasets due to its quadratic time complexity. The optimized versions, such as early termination and bidirectional sorting, offer better performance in specific scenarios. However, for large datasets, more advanced algorithms like Quick Sort or Merge Sort are recommended.</p>
+            <p>By understanding and implementing these optimizations, you can choose the most efficient approach depending on the characteristics of your dataset, making your programs more efficient and responsive.</p>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Your Blog. All rights reserved.</p>
+    </footer>
+</body>
+</html>

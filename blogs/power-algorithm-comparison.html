@@ -185,6 +185,17 @@
             border-radius: 10px;
             margin-bottom: 20px;
         }
+
+        /* Ensure SVG scales within its container */
+        .blog-card svg {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            background: #FFFFFF;
+            /* Preserve background if needed */
+            display: block;
+            /* Remove any extra space around SVG */
+        }
     </style>
 </head>
 
@@ -211,9 +222,8 @@
             <img src="https://via.placeholder.com/800x400.png?text=Power+Algorithm+Comparison"
                 alt="Power Algorithm Comparison Image">
             <h2><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                    contentStyleType="text/css" height="278px" preserveAspectRatio="none"
-                    style="width:197px;height:278px;background:#FFFFFF;" version="1.1" viewBox="0 0 197 278"
-                    width="197px" zoomAndPan="magnify">
+                contentStyleType="text/css" preserveAspectRatio="none"
+                style="background:#FFFFFF;" version="1.1" viewBox="0 0 197 278">
                     <defs />
                     <g>
                         <ellipse cx="85.1719" cy="20" fill="#222222" rx="10" ry="10"
@@ -320,9 +330,7 @@
         <!-- Blog Card -->
         <div class="blog-card">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                contentStyleType="text/css" height="372px" preserveAspectRatio="none"
-                style="width:443px;height:372px;background:#FFFFFF;" version="1.1" viewBox="0 0 443 372" width="443px"
-                zoomAndPan="magnify">
+            contentStyleType="text/css" preserveAspectRatio="none" style="background:#FFFFFF;" version="1.1" viewBox="0 0 443 372">
                 <defs />
                 <g>
                     <ellipse cx="160.4053" cy="20" fill="#222222" rx="10" ry="10"
