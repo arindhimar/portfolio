@@ -3,8 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const blogCards = document.querySelectorAll('.blog-card');
     const radius = 100; // Radius around the div
 
-
-
     document.addEventListener('mousemove', (e) => {
         let closestCard = null;
         let closestDistance = Infinity;

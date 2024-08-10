@@ -28,12 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
             customCursor.style.left = `${closestCardCenterX}px`;
             customCursor.style.top = `${closestCardCenterY}px`;
             customCursor.style.visibility = 'hidden'; /* Hide the custom cursor */
-            closestCard.style.cursor = 'none'; /* Hide the default mouse cursor on the card */
+            document.body.style.cursor = 'none'; /* Hide the default cursor globally */
         } else {
             customCursor.style.left = `${e.clientX}px`;
             customCursor.style.top = `${e.clientY}px`;
             customCursor.style.visibility = 'visible'; /* Show the custom cursor */
-            closestCard.style.cursor = 'auto'; /* Show the default mouse cursor on the card */
+            document.body.style.cursor = 'none'; /* Ensure default cursor is hidden */
         }
     });
 });
