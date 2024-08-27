@@ -4,46 +4,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Cards</title>
-    
-    <link rel="stylesheet" href="css/style.css">
-
+    <title>Arin Dhimar</title>
+    <link rel="icon" type="image/x-icon" href="Images/arin-dhimar-main-icon.ico">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
 
 <body>
     <div class="custom-cursor"></div>
 
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="navbar-logo">B</div>
-        <div class="navbar-menu">
-            <a href="#">Home</a>
-            <a href="under_construction.html">Projects</a>
-            <a href="blogs.html">Blogs</a>
+    <div class="vertical-line">
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/arin-dhimar/" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/arindhimar" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.instagram.com/arin_dhimar_/" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
         </div>
-        <a href="#resume" class="navbar-resume">
-            Resume
-            <span></span>
-        </a>
     </div>
 
-    <div class="content">
-        <div class="container">
-            <h1 class="line">Web/App Developer, Blog Writer &<br> Tech Enthusiast</h1>
-            <div class="line-2">
-                <p class="typing"
-                    data-text="I'm Arin Dhimar, a fresher developer passionate about learning and building software that benefits the world.">
-                    I'm Arin Dhimar, a fresher developer passionate about learning and building software that benefits
-                    the world.
-                </p>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="padding-left: 20px; font-weight:bolder" href="#">
+                    <img class="main-icon" src="Images/arin-dhimar-main-icon.ico" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="nav-overlay"></div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="projects.html">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="blogs.html">Blogs</a>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-1 hover-filled-slide-down">
+                                <span>Resume</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </nav>
+    </header>
 
+    <div class="container">
+        <div class="introduction">
+            <h1>Hey! 👋 I'm Arin Dhimar.</h1>
+            <p id="typing-text"></p>
         </div>
     </div>
-    <script src="js/script.js"></script>
 
 
-    
+    <footer class="footer">
+        <div class="footer text-center">
+            <p class="mb-0">© 2024 Arin Dhimar. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,422 @@
+:root {
+    --primary-color: white;
+    --secondary-color: #888;
+    --background-color: #222;
+    --accent-color: #00ffcc;
+    --border-color: rgb(54, 56, 55);
+    --card-color: #464141;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    cursor: none;
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color) !important;
+    overflow-x: hidden;
+    height: 100vh;
+}
+
+nav {
+    background-color: var(--background-color) !important;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar-toggler {
+    width: 50px;
+    height: 50px;
+    /* padding: 0; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+    transition: 0.3s ease-in-out;
+}
+
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+
+a {
+    cursor: none;
+    color: var(--primary-color) !important;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-color) !important;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-top: 10px;
+
+    font-weight: 600;
+    /* Adjust font weight for the list items */
+    font-size: 1rem;
+    /* Ensure a consistent font size */
+    color: var(--primary-color);
+    /* Ensure the text color matches the theme */
+}
+
+.nav-item {
+    margin-right: 10pt;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.nav-item button {
+    border: 2px solid var(--accent-color);
+}
+
+.btn-1 {
+    position: relative;
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    cursor: none;
+    /* Hide cursor */
+    margin: 0 25px 15px;
+    padding: 15px 20px;
+    min-width: 150px;
+    border: 2px solid var(--accent-color);
+    overflow: hidden;
+}
+
+.btn-1 span {
+    position: relative;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    transition: color 0.3s;
+    z-index: 1;
+}
+
+.btn-1::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    /* Start the pseudo-element above the button */
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--accent-color);
+    transition: all 0.3s ease-out;
+    /* Animate both height and position */
+    z-index: 0;
+}
+
+.btn-1:hover::before {
+    bottom: 0;
+    /* Slide the pseudo-element down to cover the button */
+}
+
+.btn-1:hover span {
+    color: var(--background-color);
+    /* Change the text color on hover */
+}
+
+.custom-cursor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1001;
+    transition: transform 0.1s ease-out;
+}
+
+/* Additional rule to ensure cursor is hidden over interactive elements */
+.btn-1,
+.btn-1 * {
+    cursor: none !important;
+}
+
+.footer {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    padding: 10px 0;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    padding: 20px;
+    color: var(--accent-color);
+    
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--accent-color); }
+}
+
+#typing-text {
+    display: inline-block;
+    overflow: hidden; /* Ensures the text doesn't overflow */
+    border-right: 2px solid var(--accent-color); /* Creates the blinking caret */
+    white-space: nowrap; /* Prevents text from wrapping */
+    font-size: 1.5rem; /* Adjust font size as needed */
+    animation: blink-caret 0.75s step-end infinite;
+    width: 0; /* Initial width for the typing effect */
+}
+
+/* Multi-line support */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px; /* Add padding for smaller screens */
+    margin: 0 auto;
+    max-width: 90%; /* Adjust max-width for smaller screens */
+    height: auto; /* Allow height to adjust based on content */
+}
+#typing-text.multi-line {
+    white-space: normal; /* Allows text to wrap */
+    width: auto; /* Resizes width based on content */
+    border: none; /* Remove the caret after typing finishes */
+    display: block;
+}
+
+
+
+.footer p {
+    margin: 0;
+    color: var(--accent-color);
+    font-size: 14px;
+}
+
+.vertical-line {
+    position: fixed;
+    top: 70%; /* Adjust as needed */
+    left: 3%; /* Center horizontally */
+    transform: translateX(-50%); /* Center align */
+    height: 30vh;
+    width: 2px;
+    background-color: var(--accent-color);
+    z-index: 1000;
+}
+
+
+.social-icons {
+    position: relative;
+    top: -70%;
+    /* adjust the top position to place the icons above the vertical line */
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1001;
+}
+
+.social-icons a {
+    margin-bottom: 30px;
+
+    color: var(--accent-color);
+    transition: color 1s ease;
+    display: inline-block;
+    /* add this to make the anchor tag an inline-block element */
+}
+
+.social-icons a:hover {
+    color: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+.social-icons i {
+    font-size: 24px;
+    transition: transform 1s ease;
+    /* add transition to the icon */
+}
+
+.social-icons a:hover i {
+    transform: scale(1.1);
+    /* scale up the icon on hover */
+}
+
+.main-icon {
+    width: 50%;
+    height: 50%;
+}
+
+
+
+
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent
+    }
+}
+
+/* The typing effect */
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: var(--accent-color);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        max-width: 90%; /* Adjusts to 90% of viewport width */
+        padding: 0 5%; /* Adds responsive padding */
+    }
+
+    .container .introduction {
+        margin-bottom: 5vh; /* Margin based on viewport height */
+        margin-right: 5%; /* Margin based on viewport width */
+    }
+
+    .container .introduction h1 {
+        font-size: 2rem; /* Use relative units for font size */
+    }
+
+    #typing-text {
+        font-size: 1.5rem; /* Use relative units for font size */
+    }
+    .vertical-line {
+        position: fixed;
+        top: 70%; /* Adjust as needed */
+        left: 3%; /* Center horizontally */
+        transform: translateX(-50%); /* Center align */
+        height: 30vh;
+        width: 2px;
+        background-color: var(--accent-color);
+        z-index: 1000;
+    }
+    
+    
+}
+
+@media screen and (max-width: 576px) {
+    .container {
+        max-width: 100%; /* Full width on extra-small screens */
+        padding: 0 2%; /* Adjust padding for extra-small screens */
+    }
+
+    .container .introduction {
+        margin-bottom: 4vh; /* Adjust margin for smaller screens */
+        margin-right: 3%; /* Adjust margin for smaller screens */
+    }
+
+    .container .introduction h1 {
+        font-size: 1.5rem; /* Adjust font size for smaller screens */
+    }
+
+    #typing-text {
+        font-size: 1.2rem; /* Adjust font size for smaller screens */
+    }
+}
+
+
+
+@media screen and (max-width: 991px) {
+    .navbar-collapse.collapse:not(.show) {
+        display: block;
+    }
+    
+
+    .navbar-collapse {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: #212529;
+        width: 215px;
+        height: 100%;
+        z-index: 9999;
+        padding: 25px;
+        transform: translateX(-215px);
+        transition: 0.5s ease-in-out;
+    }
+
+    .navbar-collapse.show {
+        transform: translateX(0px);
+    }
+
+    .nav-overlay {
+        position: absolute;
+        background: #0000007d;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        transform: translateX(-100vw);
+        transition: 0.5s ease-in-out;
+    }
+
+    .nav-item button {
+        border: 2px solid var(--accent-color);
+        margin-left: -5px;
+    }
+
+    .nav-overlay.active {
+        transform: translateX(0);
+    }
+
+    .custom-cursor {
+        background-color: var(--background-color);
+        width: 0;
+        height: 0;
+    }
+
+    .main-icon {
+        margin-left: -10px;
+    }
+
+    .vertical-line {
+        margin-left: 5px;
+    }
+}

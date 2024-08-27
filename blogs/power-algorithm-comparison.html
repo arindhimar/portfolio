@@ -5,201 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Power Algorithm Comparison</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-        :root {
-            --cursor-color: white;
-            --primary-color: white;
-            --secondary-color: #888;
-            --background-color: #222;
-            --accent-color: #00ffcc;
-            --border-color: rgb(54, 56, 55);
-            --card-color: #464141;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--background-color);
-            color: var(--primary-color);
-        }
-
-        /* Navbar styles */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background-color: var(--background-color);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-        }
-
-        .navbar-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent-color);
-        }
-
-        .navbar-menu {
-            display: flex;
-            gap: 20px;
-            margin-left: auto;
-        }
-
-        .navbar-menu a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 1rem;
-            transition: color 0.3s;
-        }
-
-        .navbar-menu a:hover {
-            color: var(--accent-color);
-        }
-
-        .navbar-resume {
-            padding: 10px 20px;
-            font-size: 1rem;
-            color: var(--primary-color);
-            background: transparent;
-            border: 2px solid var(--primary-color);
-            border-radius: 5px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            text-decoration: none;
-            margin: 0 6% 0 1%;
-            transition: color 0.3s;
-        }
-
-        .navbar-resume::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 0%;
-            width: 100%;
-            background-color: var(--accent-color);
-            transition: height 0.35s ease;
-            z-index: -1;
-        }
-
-        .navbar-resume:hover::before {
-            height: 100%;
-        }
-
-        .navbar-resume:hover {
-            color: var(--background-color);
-        }
-
-        .navbar-resume span {
-            position: relative;
-            z-index: 1;
-        }
-
-        .content {
-            margin-top: 80px;
-            padding: 20px;
-        }
-
-        .blog-card {
-            background-color: var(--card-color);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .blog-card h2 {
-            font-size: 28px;
-            color: var(--accent-color);
-            margin-bottom: 15px;
-        }
-
-        .blog-card h3 {
-            font-size: 22px;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-
-        .blog-card pre {
-            background-color: #222;
-            padding: 15px;
-            border-radius: 5px;
-            color: var(--primary-color);
-            overflow-x: auto;
-            margin-bottom: 20px;
-        }
-
-        .blog-card p {
-            font-size: 18px;
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .blog-card ul {
-            margin: 10px 0;
-            padding-left: 20px;
-        }
-
-        .blog-card ul li {
-            margin-bottom: 5px;
-            color: var(--primary-color);
-            line-height: 1.6;
-        }
-
-        .blog-card .pros-cons {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .blog-card .pros-cons div {
-            width: 48%;
-        }
-
-        .blog-card .pros-cons div ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .blog-card .pros-cons div ul li {
-            margin-bottom: 5px;
-            color: var(--primary-color);
-        }
-
-        .blog-card .conclusion {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        .blog-card img {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        /* Ensure SVG scales within its container */
-        .blog-card svg {
-            width: 100%;
-            height: auto;
-            max-width: 100%;
-            background: #FFFFFF;
-            /* Preserve background if needed */
-            display: block;
-            /* Remove any extra space around SVG */
-        }
-    </style>
+    <link rel="stylesheet" href="../css/internal_blog.css">
 </head>
 
 <body>
+    <div class="custom-cursor"></div>
 
     <!-- Navbar -->
     <div class="navbar">
@@ -208,95 +18,30 @@
             <a href="../index.html">Home</a>
             <a href="../under_construction.html">Projects</a>
             <a href="../blogs.html">Blogs</a>
-            
         </div>
-        <a href="#resume" class="navbar-resume">
-            Resume
-            <span></span>
-        </a>
+        <a href="#resume" class="navbar-resume">Resume</a>
     </div>
 
     <!-- Main Content Area -->
     <div class="content">
-
         <!-- Blog Card -->
         <div class="blog-card">
             <img src="https://via.placeholder.com/800x400.png?text=Power+Algorithm+Comparison"
                 alt="Power Algorithm Comparison Image">
-            <h2><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                contentStyleType="text/css" preserveAspectRatio="none"
-                style="background:#FFFFFF;" version="1.1" viewBox="0 0 197 278">
-                    <defs />
-                    <g>
-                        <ellipse cx="85.1719" cy="20" fill="#222222" rx="10" ry="10"
-                            style="stroke:#222222;stroke-width:1.0;" />
-                        <rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5"
-                            style="stroke:#181818;stroke-width:0.5;" width="145.0156" x="12.6641" y="50" /><text
-                            fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing"
-                            textLength="125.0156" x="22.6641" y="71.1387">Initialize result = 1.0</text>
-                        <rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5"
-                            style="stroke:#181818;stroke-width:0.5;" width="148.3438" x="11" y="147.9688" /><text
-                            fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing"
-                            textLength="128.3438" x="21" y="169.1074">result = result * base</text>
-                        <polygon fill="#F1F1F1"
-                            points="85.1719,103.9688,97.1719,115.9688,85.1719,127.9688,73.1719,115.9688,85.1719,103.9688"
-                            style="stroke:#181818;stroke-width:0.5;" />
-                        <polygon fill="#F1F1F1"
-                            points="47.5608,201.9375,122.783,201.9375,134.783,213.9375,122.783,225.9375,47.5608,225.9375,35.5608,213.9375,47.5608,201.9375"
-                            style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="sans-serif"
-                            font-size="11" lengthAdjust="spacing" textLength="75.2222" x="47.5608" y="217.7456">exponent
-                            &gt; 0</text>
-                        <ellipse cx="85.1719" cy="256.9375" fill="none" rx="11" ry="11"
-                            style="stroke:#222222;stroke-width:1.0;" />
-                        <ellipse cx="85.1719" cy="256.9375" fill="#222222" rx="6" ry="6"
-                            style="stroke:#222222;stroke-width:1.0;" />
-                        <line style="stroke:#181818;stroke-width:1.0;" x1="85.1719" x2="85.1719" y1="30" y2="50" />
-                        <polygon fill="#181818" points="81.1719,40,85.1719,50,89.1719,40,85.1719,44"
-                            style="stroke:#181818;stroke-width:1.0;" />
-                        <line style="stroke:#181818;stroke-width:1.0;" x1="85.1719" x2="85.1719" y1="127.9688"
-                            y2="147.9688" />
-                        <polygon fill="#181818"
-                            points="81.1719,137.9688,85.1719,147.9688,89.1719,137.9688,85.1719,141.9688"
-                            style="stroke:#181818;stroke-width:1.0;" />
-                        <line style="stroke:#181818;stroke-width:1.0;" x1="134.783" x2="171.3438" y1="213.9375"
-                            y2="213.9375" />
-                        <polygon fill="#181818"
-                            points="167.3438,174.9531,171.3438,164.9531,175.3438,174.9531,171.3438,170.9531"
-                            style="stroke:#181818;stroke-width:1.0;" />
-                        <line style="stroke:#181818;stroke-width:1.0;" x1="171.3438" x2="171.3438" y1="115.9688"
-                            y2="213.9375" />
-                        <line style="stroke:#181818;stroke-width:1.0;" x1="171.3438" x2="97.1719" y1="115.9688"
-                            y2="115.9688" />
-                        <polygon fill="#181818"
-                            points="107.1719,111.9688,97.1719,115.9688,107.1719,119.9688,103.1719,115.9688"
-                            style="stroke:#181818;stroke-width:1.0;" />
-                        <line style="stroke:#181818;stroke-width:1.0;" x1="85.1719" x2="85.1719" y1="181.9375"
-                            y2="201.9375" />
-                        <polygon fill="#181818"
-                            points="81.1719,191.9375,85.1719,201.9375,89.1719,191.9375,85.1719,195.9375"
-                            style="stroke:#181818;stroke-width:1.0;" />
-                        <line style="stroke:#181818;stroke-width:1.0;" x1="85.1719" x2="85.1719" y1="83.9688"
-                            y2="103.9688" />
-                        <polygon fill="#181818"
-                            points="81.1719,93.9688,85.1719,103.9688,89.1719,93.9688,85.1719,97.9688"
-                            style="stroke:#181818;stroke-width:1.0;" />
-                        <line style="stroke:#181818;stroke-width:1.0;" x1="85.1719" x2="85.1719" y1="225.9375"
-                            y2="245.9375" />
-                        <polygon fill="#181818"
-                            points="81.1719,235.9375,85.1719,245.9375,89.1719,235.9375,85.1719,239.9375"
-                            style="stroke:#181818;stroke-width:1.0;" />
-                        <!--SRC=[Aov9B2hXilBCoop9JCp9h4fLA4ejBiqfKR1LCDGpiEOgIYr8JIpXKW02AxWCbA6ba9HOd0fJer2UaPcJgg2HMb6GdvUQLw9Wfs2WoLLSaby00000]-->
-                    </g><br>
-                </svg> Power Algorithm Comparison</h2>
+            
             <h3>Algorithm</h3>
-            <pre><code class="language-c">double power(double base, int exponent) {
+            <div class="code-container">
+                <pre><code class="language-c">double power(double base, int exponent) {
     double result = 1.0;
     for (int i = 0; i < exponent; i++) {
         result *= base;
     }
     return result;
 }</code></pre>
+                <button class="copy-btn">Copy</button>
+            </div>
             <h3>Explanation</h3>
+            <h3>Power Algorithm Comparison</h3>
             <p>The basic power algorithm computes the power of a base raised to an exponent by multiplying the base
                 exponent times. The time complexity of this algorithm is O(n), where n is the exponent.</p>
             <h3>Dry Run</h3>
@@ -331,136 +76,10 @@
 
         <!-- Blog Card -->
         <div class="blog-card">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-            contentStyleType="text/css" preserveAspectRatio="none" style="background:#FFFFFF;" version="1.1" viewBox="0 0 443 372">
-                <defs />
-                <g>
-                    <ellipse cx="160.4053" cy="20" fill="#222222" rx="10" ry="10"
-                        style="stroke:#222222;stroke-width:1.0;" />
-                    <rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
-                        width="164.2168" x="78.2969" y="50" /><text fill="#000000" font-family="sans-serif"
-                        font-size="12" lengthAdjust="spacing" textLength="144.2168" x="88.2969" y="71.1387">Check if
-                        exponent == 0</text>
-                    <polygon fill="#F1F1F1"
-                        points="118.1858,103.9688,202.6248,103.9688,214.6248,115.9688,202.6248,127.9688,118.1858,127.9688,106.1858,115.9688,118.1858,103.9688"
-                        style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="sans-serif"
-                        font-size="11" lengthAdjust="spacing" textLength="84.439" x="118.1858" y="119.7769">exponent ==
-                        0</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing"
-                        textLength="19.0083" x="87.1775" y="113.3745">yes</text><text fill="#000000"
-                        font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="13.7017" x="214.6248"
-                        y="113.3745">no</text>
-                    <rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
-                        width="83.4688" x="11" y="137.9688" /><text fill="#000000" font-family="sans-serif"
-                        font-size="12" lengthAdjust="spacing" textLength="63.4688" x="21" y="159.1074">Return 1.0</text>
-                    <rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
-                        width="278.7969" x="128.6777" y="137.9688" /><text fill="#000000" font-family="sans-serif"
-                        font-size="12" lengthAdjust="spacing" textLength="258.7969" x="138.6777" y="159.1074">Calculate
-                        half = power(base, exponent / 2)</text>
-                    <polygon fill="#F1F1F1"
-                        points="213.6348,191.9375,322.5176,191.9375,334.5176,203.9375,322.5176,215.9375,213.6348,215.9375,201.6348,203.9375,213.6348,191.9375"
-                        style="stroke:#181818;stroke-width:0.5;" /><text fill="#000000" font-family="sans-serif"
-                        font-size="11" lengthAdjust="spacing" textLength="108.8828" x="213.6348" y="207.7456">exponent %
-                        2 == 0</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing"
-                        textLength="19.0083" x="182.6265" y="201.3433">yes</text><text fill="#000000"
-                        font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="13.7017" x="334.5176"
-                        y="201.3433">no</text>
-                    <rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
-                        width="123.0488" x="124.4688" y="225.9375" /><text fill="#000000" font-family="sans-serif"
-                        font-size="12" lengthAdjust="spacing" textLength="103.0488" x="134.4688" y="247.0762">Return
-                        half * half</text>
-                    <rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
-                        width="165.2832" x="267.5176" y="225.9375" /><text fill="#000000" font-family="sans-serif"
-                        font-size="12" lengthAdjust="spacing" textLength="145.2832" x="277.5176" y="247.0762">Return
-                        half * half * base</text>
-                    <polygon fill="#F1F1F1"
-                        points="268.0762,265.9063,280.0762,277.9063,268.0762,289.9063,256.0762,277.9063,268.0762,265.9063"
-                        style="stroke:#181818;stroke-width:0.5;" />
-                    <polygon fill="#F1F1F1"
-                        points="160.4053,295.9063,172.4053,307.9063,160.4053,319.9063,148.4053,307.9063,160.4053,295.9063"
-                        style="stroke:#181818;stroke-width:0.5;" />
-                    <ellipse cx="160.4053" cy="350.9063" fill="none" rx="11" ry="11"
-                        style="stroke:#222222;stroke-width:1.0;" />
-                    <ellipse cx="160.4053" cy="350.9063" fill="#222222" rx="6" ry="6"
-                        style="stroke:#222222;stroke-width:1.0;" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="160.4053" x2="160.4053" y1="30" y2="50" />
-                    <polygon fill="#181818" points="156.4053,40,160.4053,50,164.4053,40,160.4053,44"
-                        style="stroke:#181818;stroke-width:1.0;" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="201.6348" x2="185.9932" y1="203.9375"
-                        y2="203.9375" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="185.9932" x2="185.9932" y1="203.9375"
-                        y2="225.9375" />
-                    <polygon fill="#181818"
-                        points="181.9932,215.9375,185.9932,225.9375,189.9932,215.9375,185.9932,219.9375"
-                        style="stroke:#181818;stroke-width:1.0;" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="334.5176" x2="350.1592" y1="203.9375"
-                        y2="203.9375" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="350.1592" x2="350.1592" y1="203.9375"
-                        y2="225.9375" />
-                    <polygon fill="#181818"
-                        points="346.1592,215.9375,350.1592,225.9375,354.1592,215.9375,350.1592,219.9375"
-                        style="stroke:#181818;stroke-width:1.0;" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="185.9932" x2="185.9932" y1="259.9063"
-                        y2="277.9063" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="185.9932" x2="256.0762" y1="277.9063"
-                        y2="277.9063" />
-                    <polygon fill="#181818"
-                        points="246.0762,273.9063,256.0762,277.9063,246.0762,281.9063,250.0762,277.9063"
-                        style="stroke:#181818;stroke-width:1.0;" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="350.1592" x2="350.1592" y1="259.9063"
-                        y2="277.9063" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="350.1592" x2="280.0762" y1="277.9063"
-                        y2="277.9063" />
-                    <polygon fill="#181818"
-                        points="290.0762,273.9063,280.0762,277.9063,290.0762,281.9063,286.0762,277.9063"
-                        style="stroke:#181818;stroke-width:1.0;" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="268.0762" x2="268.0762" y1="171.9375"
-                        y2="191.9375" />
-                    <polygon fill="#181818"
-                        points="264.0762,181.9375,268.0762,191.9375,272.0762,181.9375,268.0762,185.9375"
-                        style="stroke:#181818;stroke-width:1.0;" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="106.1858" x2="52.7344" y1="115.9688"
-                        y2="115.9688" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="52.7344" x2="52.7344" y1="115.9688"
-                        y2="137.9688" />
-                    <polygon fill="#181818" points="48.7344,127.9688,52.7344,137.9688,56.7344,127.9688,52.7344,131.9688"
-                        style="stroke:#181818;stroke-width:1.0;" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="214.6248" x2="268.0762" y1="115.9688"
-                        y2="115.9688" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="268.0762" x2="268.0762" y1="115.9688"
-                        y2="137.9688" />
-                    <polygon fill="#181818"
-                        points="264.0762,127.9688,268.0762,137.9688,272.0762,127.9688,268.0762,131.9688"
-                        style="stroke:#181818;stroke-width:1.0;" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="52.7344" x2="52.7344" y1="171.9375"
-                        y2="307.9063" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="52.7344" x2="148.4053" y1="307.9063"
-                        y2="307.9063" />
-                    <polygon fill="#181818"
-                        points="138.4053,303.9063,148.4053,307.9063,138.4053,311.9063,142.4053,307.9063"
-                        style="stroke:#181818;stroke-width:1.0;" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="268.0762" x2="268.0762" y1="289.9063"
-                        y2="307.9063" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="268.0762" x2="172.4053" y1="307.9063"
-                        y2="307.9063" />
-                    <polygon fill="#181818"
-                        points="182.4053,303.9063,172.4053,307.9063,182.4053,311.9063,178.4053,307.9063"
-                        style="stroke:#181818;stroke-width:1.0;" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="160.4053" x2="160.4053" y1="83.9688"
-                        y2="103.9688" />
-                    <polygon fill="#181818"
-                        points="156.4053,93.9688,160.4053,103.9688,164.4053,93.9688,160.4053,97.9688"
-                        style="stroke:#181818;stroke-width:1.0;" />
-                    <line style="stroke:#181818;stroke-width:1.0;" x1="160.4053" x2="160.4053" y1="319.9063"
-                        y2="339.9063" />
-                    <polygon fill="#181818"
-                        points="156.4053,329.9063,160.4053,339.9063,164.4053,329.9063,160.4053,333.9063"
-                        style="stroke:#181818;stroke-width:1.0;" />
-                    <!--SRC=[TKvB2i8m4Dtd56yZf29-kcpfgZVm1h5EI35CIZD5lRqnBMX1Pp43RzulYXb5LQsZxeRUWXv3O691q-1OguJe5LH0737qasAXaAOwaqmZuxHFTFAHe3aihzRuRl962CvuYmP3kDEeBoRIxfDqG5dKMR1Asw3ydVYTcdst-SmMwmP_gEcyEomAllPMpJjA65u0]-->
-                </g>
-            </svg>
             <h2>Optimized Power Algorithm (Exponentiation by Squaring)</h2>
             <h3>Algorithm</h3>
-            <pre><code class="language-c">double power(double base, int exponent) {
+            <div class="code-container">
+                <pre><code class="language-c">double power(double base, int exponent) {
     if (exponent == 0) {
         return 1.0;
     }
@@ -471,6 +90,8 @@
         return half * half * base;
     }
 }</code></pre>
+                <button class="copy-btn">Copy</button>
+            </div>
             <h3>Explanation</h3>
             <p>The optimized power algorithm, also known as Exponentiation by Squaring, reduces the time complexity to
                 O(log n). It divides the problem into smaller subproblems and uses the property:</p>
@@ -515,9 +136,19 @@
                 preferred over the basic power algorithm in such cases.
             </div>
         </div>
-
     </div>
 
+    <script>
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.previousElementSibling.textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => button.textContent = 'Copy', 1000);
+                }).catch(err => console.error('Failed to copy: ', err));
+            });
+        });
+    </script>
 </body>
 
 </html>

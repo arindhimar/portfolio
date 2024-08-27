@@ -4,68 +4,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Cards</title>
-    <script src="js/blogs-main-scrpit.js" defer></script>
-    <link rel="stylesheet" href="css/blogs.css">
-
+    <title>Arin Dhimar</title>
+    <link rel="icon" type="image/x-icon" href="Images/arin-dhimar-main-icon.ico">
+    <link rel="stylesheet" href="css/template.css">
+    <link rel="stylesheet" href="css/blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
 
 <body>
     <div class="custom-cursor"></div>
 
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="navbar-logo">B</div>
-        <div class="navbar-menu">
-            <a href="index.html">Home</a>
-            <a href="under_construction.html">Projects</a>
-            <a href="#">Blogs</a>
+    <div class="vertical-line">
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/arin-dhimar/" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/arindhimar" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.instagram.com/arin_dhimar_/" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
         </div>
-        <a href="#resume" class="navbar-resume">
-            Resume
-            <span></span>
-        </a>
     </div>
 
-    <div class="blog-cards">
-        <a href="blogs/power-algorithm-comparison.html" class="blog-card">
-            <img src="image1.jpg" alt="Blog Image" class="card-image">
-            <div class="card-content">
-                <h2 class="card-title">Can Power Algorithms Be Optimized Further?</h2>
-                <p class="card-text">Explore the basic and optimized power algorithms, and discover how they can be improved for even better performance.</p>
-                <button class="card-button">Read More</button>
-                <div class="card-tags">
-                    <span class="tag">Algorithm</span>
-                    <span class="tag">DSA</span>
-                    <span class="tag">Beginner</span>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="padding-left: 20px; font-weight:bolder" href="#">
+                    <img class="main-icon" src="Images/arin-dhimar-main-icon.ico" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="nav-overlay"></div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="projects.html">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Blogs</a>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-1 hover-filled-slide-down">
+                                <span>Resume</span>
+                            </button>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </a>
-        <a href="blogs/bubble-sort-optimization.html" class="blog-card">
-            <img src="image1.jpg" alt="Blog Image" class="card-image">
-            <div class="card-content">
-                <h2 class="card-title">Revolutionizing Bubble Sort: Modern Techniques</h2>
-                <p class="card-text">Explore how the classic bubble sort algorithm has evolved with new optimization techniques. Discover cutting-edge methods to boost its efficiency and make it relevant in today’s computational landscape.</p>
-                <button class="card-button">Read More</button>
-                <div class="card-tags">
-                    <span class="tag">Sorting</span>
-                    <span class="tag">DSA</span>
-                    <span class="tag">Algorithm</span>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="blog-cards">
+            <a href="blogs/power-algorithm-comparison.html" class="blog-card">
+                <img src="image1.jpg" alt="Blog Image" class="card-image">
+                <div class="card-content">
+                    <h2 class="card-title">Can Power Algorithms Be Optimized Further?</h2>
+                    <p class="card-text">Dive into an in-depth analysis of power algorithms and their optimization strategies. Learn about advancements that can enhance their efficiency and performance in various applications.</p>
+                    <button class="card-button">Read More</button>
+                    <div class="card-tags">
+                        <span class="tag">Algorithm</span>
+                        <span class="tag">DSA</span>
+                        <span class="tag">Beginner</span>
+                    </div>
                 </div>
-            </div>
-        </a>
-        
-        
-        <!-- Repeat similar blog-card structure for additional cards -->
+            </a>
+            
+            
+            <a href="blogs/bubble-sort-optimization.html" class="blog-card">
+                <img src="image1.jpg" alt="Blog Image" class="card-image">
+                <div class="card-content">
+                    <h2 class="card-title">Revolutionizing Bubble Sort: Modern Techniques</h2>
+                    <p class="card-text">Discover the evolution of bubble sort with contemporary optimization techniques. This article explores innovative methods to enhance its performance, making bubble sort more effective in modern computing.</p>
+                    <button class="card-button">Read More</button>
+                    <div class="card-tags">
+                        <span class="tag">Sorting</span>
+                        <span class="tag">DSA</span>
+                        <span class="tag">Algorithm</span>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="blogs/roman-number-to-integer.html" class="blog-card">
+                <img src="image1" alt="Roman Numerals to Integer Conversion" class="card-image">
+                <div class="card-content">
+                    <h2 class="card-title">Understanding Roman Numerals to Integer Conversion</h2>
+                    <p class="card-text">Dive into the methods of converting Roman numerals to integers with detailed explanations and code examples. This article covers various approaches, including brute force, hash table, and two-pointer techniques, to help you grasp efficient solutions for this conversion problem.</p>
+                    <button class="card-button">Read More</button>
+                    <div class="card-tags">
+                        <span class="tag">Algorithms</span>
+                        <span class="tag">Programming</span>
+                        <span class="tag">Data Structures</span>
+                    </div>
+                </div>
+            </a>
+            
+
+
+
+            <!-- Repeat similar blog-card structure for additional cards -->
+        </div>
+
     </div>
 
-    <script>
-        document.addEventListener('mousemove', (e) => {
-            const cursor = document.querySelector('.custom-cursor');
-            cursor.style.left = `${e.clientX}px`;
-            cursor.style.top = `${e.clientY}px`;
-        });
-    </script>
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="mb-0">© 2024 Arin Dhimar. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>
