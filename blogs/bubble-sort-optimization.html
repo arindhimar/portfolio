@@ -4,345 +4,399 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Understanding Bubble Sort and Its Optimizations in C++</title>
+    <title>Arin Dhimar</title>
+    <link rel="icon" type="image/x-icon" href="Images/arin-dhimar-main-icon.ico">
+    <link rel="stylesheet" href="../css/template.css">
     <link rel="stylesheet" href="../css/internal_blog.css">
-    <script>
-        function copyCode(button) {
-            const code = button.previousElementSibling.textContent;
-            navigator.clipboard.writeText(code).then(() => {
-                button.textContent = 'Copied!';
-                setTimeout(() => {
-                    button.textContent = 'Copy';
-                }, 2000);
-            }, (err) => {
-                console.error('Failed to copy code: ', err);
-            });
-        }
-    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
 
 <body>
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="navbar-logo">BubbleSort</div>
-        <div class="navbar-menu">
-            <a href="../index.html">Home</a>
-            <a href="../under_construction.html">Projects</a>
-            <a href="../blogs.html">Blogs</a>
-        </div>
-        <a href="#resume" class="navbar-resume">Resume</a>
-    </div>
+    <div class="custom-cursor"></div>
 
-    <!-- Main Content Area -->
-    <div class="content">
-        <!-- Blog Card for Bubble Sort -->
-        <div class="blog-card">
-            <img src="https://via.placeholder.com/800x400.png?text=Bubble+Sort+Algorithm" alt="Bubble Sort Algorithm">
-            <h2>Understanding Bubble Sort and Its Optimizations in C++</h2>
-
-            <h3>Basic Bubble Sort Algorithm</h3>
-            <div class="code-container">
-                <pre><code class="language-cpp">void bubbleSort(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            }
-        }
-    }
-}</code></pre>
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-            </div>
-
-            <h3>Explanation</h3>
-            <p>The basic Bubble Sort algorithm sorts an array by repeatedly comparing adjacent elements and swapping them if they are in the wrong order. This process continues until the entire array is sorted. The algorithm performs <code>n−1</code> passes, where <code>n</code> is the number of elements in the array. The time complexity of this algorithm is <code>O(n<sup>2</sup>)</code>, which makes it inefficient for large datasets.</p>
-
-            <h3>Dry Run</h3>
-            <p>Let's take an example: <code>arr = {64, 34, 25, 12, 22, 11, 90}</code>.</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>[0]</th>
-                        <th>[1]</th>
-                        <th>[2]</th>
-                        <th>[3]</th>
-                        <th>[4]</th>
-                        <th>[5]</th>
-                        <th>[6]</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Original Array</strong></td>
-                        <td>64</td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>12</td>
-                        <td>22</td>
-                        <td>11</td>
-                        <td>90</td>
-                    </tr>
-                    <tr>
-                        <td><strong>After Pass 1</strong></td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>12</td>
-                        <td>22</td>
-                        <td>11</td>
-                        <td>64</td>
-                        <td>90</td>
-                    </tr>
-                    <tr>
-                        <td><strong>After Pass 2</strong></td>
-                        <td>25</td>
-                        <td>12</td>
-                        <td>22</td>
-                        <td>11</td>
-                        <td>34</td>
-                        <td>64</td>
-                        <td>90</td>
-                    </tr>
-                    <tr>
-                        <td><strong>After Pass 3</strong></td>
-                        <td>12</td>
-                        <td>22</td>
-                        <td>11</td>
-                        <td>25</td>
-                        <td>34</td>
-                        <td>64</td>
-                        <td>90</td>
-                    </tr>
-                    <tr>
-                        <td><strong>After Pass 4</strong></td>
-                        <td>12</td>
-                        <td>22</td>
-                        <td>11</td>
-                        <td>25</td>
-                        <td>34</td>
-                        <td>64</td>
-                        <td>90</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>Pros and Cons</h3>
-            <div class="pros-cons">
-                <div>
-                    <h4>Pros:</h4>
-                    <ul>
-                        <li>Simple to implement and understand.</li>
-                        <li>No additional memory required.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Cons:</h4>
-                    <ul>
-                        <li>Inefficient for large datasets due to its <code>O(n<sup>2</sup>)</code> time complexity.</li>
-                        <li>Not suitable for performance-critical applications.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3>Optimized Bubble Sort by Early Termination</h3>
-            <div class="code-container">
-                <pre><code class="language-cpp">void optimizedBubbleSort(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        bool swapped = false;
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-                swapped = true;
-            }
-        }
-        if (!swapped) break;
-    }
-}</code></pre>
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-            </div>
-
-            <h3>Explanation</h3>
-            <p>The optimized Bubble Sort algorithm improves the basic version by checking if any swaps were made during a pass. If no swaps were made, the array is already sorted, and the algorithm can terminate early. This reduces unnecessary passes, improving efficiency for nearly sorted arrays. The time complexity in the best case (when the array is already sorted) is <code>O(n)</code>.</p>
-
-            <h3>Dry Run</h3>
-            <p>Let's take an example: <code>arr = {12, 11, 22, 25, 34, 64, 90}</code> (almost sorted).</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>[0]</th>
-                        <th>[1]</th>
-                        <th>[2]</th>
-                        <th>[3]</th>
-                        <th>[4]</th>
-                        <th>[5]</th>
-                        <th>[6]</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Original Array</strong></td>
-                        <td>12</td>
-                        <td>11</td>
-                        <td>22</td>
-                        <td>25</td>
-                        <td>34</td>
-                        <td>64</td>
-                        <td>90</td>
-                    </tr>
-                    <tr>
-                        <td><strong>After Pass 1</strong></td>
-                        <td>11</td>
-                        <td>12</td>
-                        <td>22</td>
-                        <td>25</td>
-                        <td>34</td>
-                        <td>64</td>
-                        <td>90</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Early Termination</strong></td>
-                        <td>11</td>
-                        <td>12</td>
-                        <td>22</td>
-                        <td>25</td>
-                        <td>34</td>
-                        <td>64</td>
-                        <td>90</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>Pros and Cons</h3>
-            <div class="pros-cons">
-                <div>
-                    <h4>Pros:</h4>
-                    <ul>
-                        <li>More efficient for nearly sorted arrays; early termination reduces unnecessary passes.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Cons:</h4>
-                    <ul>
-                        <li>Still has a time complexity of <code>O(n<sup>2</sup>)</code> in the worst case.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3>Bidirectional Bubble Sort (Cocktail Shaker Sort)</h3>
-            <div class="code-container">
-                <pre><code class="language-cpp">void bidirectionalBubbleSort(int arr[], int n) {
-    bool swapped = true;
-    int start = 0;
-    int end = n - 1;
-
-    while (swapped) {
-        swapped = false;
-        for (int i = start; i < end; i++) {
-            if (arr[i] > arr[i + 1]) {
-                int temp = arr[i];
-                arr[i] = arr[i + 1];
-                arr[i + 1] = temp;
-                swapped = true;
-            }
-        }
-        if (!swapped) break;
-        swapped = false;
-        end--;
-
-        for (int i = end; i > start; i--) {
-            if (arr[i] < arr[i - 1]) {
-                int temp = arr[i];
-                arr[i] = arr[i - 1];
-                arr[i - 1] = temp;
-                swapped = true;
-            }
-        }
-        start++;
-    }
-}</code></pre>
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-            </div>
-
-            <h3>Explanation</h3>
-            <p>The Bidirectional Bubble Sort (also known as Cocktail Shaker Sort) improves upon the basic version by sorting in both directions. It performs passes from left to right and right to left, reducing the range of elements that need to be sorted. This can be more efficient in practice as it moves smaller elements to the beginning and larger elements to the end more quickly. The time complexity is still <code>O(n<sup>2</sup>)</code>, but it often performs better in practice.</p>
-
-            <h3>Dry Run</h3>
-            <p>Let's take an example: <code>arr = {64, 34, 25, 12, 22, 11, 90}</code>.</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>[0]</th>
-                        <th>[1]</th>
-                        <th>[2]</th>
-                        <th>[3]</th>
-                        <th>[4]</th>
-                        <th>[5]</th>
-                        <th>[6]</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Original Array</strong></td>
-                        <td>64</td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>12</td>
-                        <td>22</td>
-                        <td>11</td>
-                        <td>90</td>
-                    </tr>
-                    <tr>
-                        <td><strong>After Forward Pass</strong></td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>12</td>
-                        <td>22</td>
-                        <td>11</td>
-                        <td>64</td>
-                        <td>90</td>
-                    </tr>
-                    <tr>
-                        <td><strong>After Backward Pass</strong></td>
-                        <td>11</td>
-                        <td>12</td>
-                        <td>22</td>
-                        <td>25</td>
-                        <td>34</td>
-                        <td>64</td>
-                        <td>90</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>Pros and Cons</h3>
-            <div class="pros-cons">
-                <div>
-                    <h4>Pros:</h4>
-                    <ul>
-                        <li>Efficient in practice for some datasets.</li>
-                        <li>Reduces the number of passes required to sort the array.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Cons:</h4>
-                    <ul>
-                        <li>Still has a time complexity of <code>O(n<sup>2</sup>)</code> in the worst case.</li>
-                    </ul>
-                </div>
-            </div>
+    <div class="vertical-line">
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/arin-dhimar/" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/arindhimar" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.instagram.com/arin_dhimar_/" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
         </div>
     </div>
 
-    <!-- Footer -->
-    <div class="footer">
-        <p>© 2024 Arindh Himar | All rights reserved</p>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="padding-left: 20px; font-weight:bolder" href="#">
+                    <img class="main-icon" src="../Images/arin-dhimar-main-icon.ico" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="nav-overlay"></div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../projects.html">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../blogs.html">Blogs</a>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-1 hover-filled-slide-down">
+                                <span>Resume</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="content">
+            <!-- Blog Card for Bubble Sort -->
+            <div class="blog-card">
+                <h1>Understanding Bubble Sort and Its Optimizations</h1>
+
+                <img src="https://via.placeholder.com/800x400.png?text=Bubble+Sort+Algorithm"
+                    alt="Bubble Sort Algorithm">
+
+                <h3>Basic Bubble Sort Algorithm</h3>
+                <div class="code-container">
+                    <pre><code class="language-cpp">void bubbleSort(int arr[], int n) {
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+
+                <h3>Explanation</h3>
+                <p>The basic Bubble Sort algorithm sorts an array by repeatedly comparing adjacent elements and swapping
+                    them if they are in the wrong order. This process continues until the entire array is sorted. The
+                    algorithm performs <code>n−1</code> passes, where <code>n</code> is the number of elements in the
+                    array. The time complexity of this algorithm is <code>O(n<sup>2</sup>)</code>, which makes it
+                    inefficient for large datasets.</p>
+
+                <h3>Dry Run</h3>
+                <p>Let's take an example: <code>arr = {64, 34, 25, 12, 22, 11, 90}</code>.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>[0]</th>
+                            <th>[1]</th>
+                            <th>[2]</th>
+                            <th>[3]</th>
+                            <th>[4]</th>
+                            <th>[5]</th>
+                            <th>[6]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Original Array</strong></td>
+                            <td>64</td>
+                            <td>34</td>
+                            <td>25</td>
+                            <td>12</td>
+                            <td>22</td>
+                            <td>11</td>
+                            <td>90</td>
+                        </tr>
+                        <tr>
+                            <td><strong>After Pass 1</strong></td>
+                            <td>34</td>
+                            <td>25</td>
+                            <td>12</td>
+                            <td>22</td>
+                            <td>11</td>
+                            <td>64</td>
+                            <td>90</td>
+                        </tr>
+                        <tr>
+                            <td><strong>After Pass 2</strong></td>
+                            <td>25</td>
+                            <td>12</td>
+                            <td>22</td>
+                            <td>11</td>
+                            <td>34</td>
+                            <td>64</td>
+                            <td>90</td>
+                        </tr>
+                        <tr>
+                            <td><strong>After Pass 3</strong></td>
+                            <td>12</td>
+                            <td>22</td>
+                            <td>11</td>
+                            <td>25</td>
+                            <td>34</td>
+                            <td>64</td>
+                            <td>90</td>
+                        </tr>
+                        <tr>
+                            <td><strong>After Pass 4</strong></td>
+                            <td>12</td>
+                            <td>22</td>
+                            <td>11</td>
+                            <td>25</td>
+                            <td>34</td>
+                            <td>64</td>
+                            <td>90</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Pros and Cons</h3>
+                <div class="pros-cons">
+                    <div>
+                        <h4>Pros:</h4>
+                        <ul>
+                            <li>Simple to implement and understand.</li>
+                            <li>No additional memory required.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Cons:</h4>
+                        <ul>
+                            <li>Inefficient for large datasets due to its <code>O(n<sup>2</sup>)</code> time complexity.
+                            </li>
+                            <li>Not suitable for performance-critical applications.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Optimized Bubble Sort by Early Termination</h3>
+                <div class="code-container">
+                    <pre><code class="language-cpp">void optimizedBubbleSort(int arr[], int n) {
+        for (int i = 0; i < n - 1; i++) {
+            bool swapped = false;
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+            if (!swapped) break;
+        }
+    }</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+
+                <h3>Explanation</h3>
+                <p>The optimized Bubble Sort algorithm improves the basic version by checking if any swaps were made
+                    during a pass. If no swaps were made, the array is already sorted, and the algorithm can terminate
+                    early. This reduces unnecessary passes, improving efficiency for nearly sorted arrays. The time
+                    complexity in the best case (when the array is already sorted) is <code>O(n)</code>.</p>
+
+                <h3>Dry Run</h3>
+                <p>Let's take an example: <code>arr = {12, 11, 22, 25, 34, 64, 90}</code> (almost sorted).</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>[0]</th>
+                            <th>[1]</th>
+                            <th>[2]</th>
+                            <th>[3]</th>
+                            <th>[4]</th>
+                            <th>[5]</th>
+                            <th>[6]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Original Array</strong></td>
+                            <td>12</td>
+                            <td>11</td>
+                            <td>22</td>
+                            <td>25</td>
+                            <td>34</td>
+                            <td>64</td>
+                            <td>90</td>
+                        </tr>
+                        <tr>
+                            <td><strong>After Pass 1</strong></td>
+                            <td>11</td>
+                            <td>12</td>
+                            <td>22</td>
+                            <td>25</td>
+                            <td>34</td>
+                            <td>64</td>
+                            <td>90</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Early Termination</strong></td>
+                            <td>11</td>
+                            <td>12</td>
+                            <td>22</td>
+                            <td>25</td>
+                            <td>34</td>
+                            <td>64</td>
+                            <td>90</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Pros and Cons</h3>
+                <div class="pros-cons">
+                    <div>
+                        <h4>Pros:</h4>
+                        <ul>
+                            <li>More efficient for nearly sorted arrays; early termination reduces unnecessary passes.
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Cons:</h4>
+                        <ul>
+                            <li>Still has a time complexity of <code>O(n<sup>2</sup>)</code> in the worst case.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Bidirectional Bubble Sort (Cocktail Shaker Sort)</h3>
+                <div class="code-container">
+                    <pre><code class="language-cpp">void bidirectionalBubbleSort(int arr[], int n) {
+        bool swapped = true;
+        int start = 0;
+        int end = n - 1;
+    
+        while (swapped) {
+            swapped = false;
+            for (int i = start; i < end; i++) {
+                if (arr[i] > arr[i + 1]) {
+                    int temp = arr[i];
+                    arr[i] = arr[i + 1];
+                    arr[i + 1] = temp;
+                    swapped = true;
+                }
+            }
+            if (!swapped) break;
+            swapped = false;
+            end--;
+    
+            for (int i = end; i > start; i--) {
+                if (arr[i] < arr[i - 1]) {
+                    int temp = arr[i];
+                    arr[i] = arr[i - 1];
+                    arr[i - 1] = temp;
+                    swapped = true;
+                }
+            }
+            start++;
+        }
+    }</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+
+                <h3>Explanation</h3>
+                <p>The Bidirectional Bubble Sort (also known as Cocktail Shaker Sort) improves upon the basic version by
+                    sorting in both directions. It performs passes from left to right and right to left, reducing the
+                    range of elements that need to be sorted. This can be more efficient in practice as it moves smaller
+                    elements to the beginning and larger elements to the end more quickly. The time complexity is still
+                    <code>O(n<sup>2</sup>)</code>, but it often performs better in practice.</p>
+
+                <h3>Dry Run</h3>
+                <p>Let's take an example: <code>arr = {64, 34, 25, 12, 22, 11, 90}</code>.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>[0]</th>
+                            <th>[1]</th>
+                            <th>[2]</th>
+                            <th>[3]</th>
+                            <th>[4]</th>
+                            <th>[5]</th>
+                            <th>[6]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Original Array</strong></td>
+                            <td>64</td>
+                            <td>34</td>
+                            <td>25</td>
+                            <td>12</td>
+                            <td>22</td>
+                            <td>11</td>
+                            <td>90</td>
+                        </tr>
+                        <tr>
+                            <td><strong>After Forward Pass</strong></td>
+                            <td>34</td>
+                            <td>25</td>
+                            <td>12</td>
+                            <td>22</td>
+                            <td>11</td>
+                            <td>64</td>
+                            <td>90</td>
+                        </tr>
+                        <tr>
+                            <td><strong>After Backward Pass</strong></td>
+                            <td>11</td>
+                            <td>12</td>
+                            <td>22</td>
+                            <td>25</td>
+                            <td>34</td>
+                            <td>64</td>
+                            <td>90</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Pros and Cons</h3>
+                <div class="pros-cons">
+                    <div>
+                        <h4>Pros:</h4>
+                        <ul>
+                            <li>Efficient in practice for some datasets.</li>
+                            <li>Reduces the number of passes required to sort the array.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Cons:</h4>
+                        <ul>
+                            <li>Still has a time complexity of <code>O(n<sup>2</sup>)</code> in the worst case.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="mb-0">© 2024 Arin Dhimar. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/index.js"></script>
 </body>
 
 </html>

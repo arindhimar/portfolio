@@ -7,15 +7,14 @@
     --card-color: #464141;
 }
 
-body {
+html, body {
     margin: 0;
     padding: 0;
-    cursor: none;
-    font-family: Arial, sans-serif;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    cursor: none; /* Hide the default cursor */
     background-color: var(--background-color) !important;
-    overflow-x: hidden; /* Keep this to prevent horizontal scroll */
-    /* Remove overflow: hidden; */
-    /* height: 100vh; */
 }
 
 
@@ -131,7 +130,7 @@ li {
 }
 
 .custom-cursor {
-    position: absolute;
+    position: fixed; /* Change to fixed to avoid being limited by parent elements */
     top: 0;
     left: 0;
     width: 20px;
@@ -142,6 +141,7 @@ li {
     z-index: 1001;
     transition: transform 0.1s ease-out;
 }
+
 
 /* Additional rule to ensure cursor is hidden over interactive elements */
 .btn-1,
@@ -166,17 +166,18 @@ li {
 
 .vertical-line {
     position: fixed;
-    top: 70%;
-    left:3%;
-    transform: translateX(-50%);
+    top: 70%; /* Adjust as needed */
+    left: 3%; /* Center horizontally */
+    transform: translateX(-50%); /* Center align */
     height: 30vh;
     width: 2px;
     background-color: var(--accent-color);
     z-index: 1000;
 }
 
+
 .social-icons {
-    position: fixed;
+    position: relative;
     top: -70%;
     /* adjust the top position to place the icons above the vertical line */
     left: 0;

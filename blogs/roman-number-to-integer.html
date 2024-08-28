@@ -4,296 +4,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Understanding Roman Numerals to Integer Conversion</title>
+    <title>Arin Dhimar</title>
+    <link rel="icon" type="image/x-icon" href="Images/arin-dhimar-main-icon.ico">
+    <link rel="stylesheet" href="../css/template.css">
     <link rel="stylesheet" href="../css/internal_blog.css">
-    <script>
-        function copyCode(button) {
-            const code = button.previousElementSibling.textContent;
-            navigator.clipboard.writeText(code).then(() => {
-                button.textContent = 'Copied!';
-                setTimeout(() => {
-                    button.textContent = 'Copy';
-                }, 2000);
-            }, (err) => {
-                console.error('Failed to copy code: ', err);
-            });
-        }
-    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
 
 <body>
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="navbar-logo">Roman Numerals</div>
-        <div class="navbar-menu">
-            <a href="../index.html">Home</a>
-            <a href="../under_construction.html">Projects</a>
-            <a href="../blogs.html">Blogs</a>
+    <div class="custom-cursor"></div>
+
+    <div class="vertical-line">
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/arin-dhimar/" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/arindhimar" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.instagram.com/arin_dhimar_/" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
         </div>
-        <a href="#resume" class="navbar-resume">Resume</a>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="content">
-        <!-- Blog Card for Roman Numerals -->
-        <div class="blog-card">
-            <img src="https://via.placeholder.com/800x400.png?text=Roman+Numerals+to+Integer+Conversion" alt="Roman Numerals to Integer Conversion">
-            <h2>Understanding Roman Numerals to Integer Conversion</h2>
-
-            <h3>Approach 1: Brute Force</h3>
-            <div class="code-container">
-                <pre><code class="language-cpp">int romanToInt(string s) {
-    int result = 0;
-    for (int i = 0; i < s.length(); i++) {
-        if (s[i] == 'I') result += 1;
-        else if (s[i] == 'V') result += 5;
-        else if (s[i] == 'X') result += 10;
-        else if (s[i] == 'L') result += 50;
-        else if (s[i] == 'C') result += 100;
-        else if (s[i] == 'D') result += 500;
-        else if (s[i] == 'M') result += 1000;
-    }
-    return result;
-}</code></pre>
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-            </div>
-
-            <h3>Explanation</h3>
-            <p>The brute force approach involves iterating over the entire string and checking each character to see if it matches a Roman numeral. If it does, add the corresponding integer value to the result. This approach has a time complexity of O(n), where n is the length of the input string.</p>
-
-            <h3>Dry Run</h3>
-            <table>
-                <tr>
-                    <th>Index</th>
-                    <th>Character</th>
-                    <th>Result</th>
-                    <th>Explanation</th>
-                </tr>
-                <tr>
-                    <td>0</td>
-                    <td>M</td>
-                    <td>1000</td>
-                    <td>M = 1000, result += 1000</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>C</td>
-                    <td>1100</td>
-                    <td>C = 100, result += 100</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>M</td>
-                    <td>2100</td>
-                    <td>M = 1000, result += 1000</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>X</td>
-                    <td>2110</td>
-                    <td>X = 10, result += 10</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>C</td>
-                    <td>2210</td>
-                    <td>C = 100, result += 100</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>IV</td>
-                    <td>2215</td>
-                    <td>V = 5, result += 5</td>
-                </tr>
-            </table>
-
-            <h3>Pros and Cons</h3>
-            <div class="pros-cons">
-                <div>
-                    <h4>Pros:</h4>
-                    <ul>
-                        <li>Easy to implement and understand.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Cons:</h4>
-                    <ul>
-                        <li>Inefficient and slow for large input strings.</li>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="padding-left: 20px; font-weight:bolder" href="#">
+                    <img class="main-icon" src="../Images/arin-dhimar-main-icon.ico" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="nav-overlay"></div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../projects.html">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../blogs.html">Blogs</a>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-1 hover-filled-slide-down">
+                                <span>Resume</span>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>
-
-            <h3>Approach 2: Hash Table</h3>
-            <div class="code-container">
-                <pre><code class="language-cpp">int romanToInt(string s) {
-    unordered_map<char, int> romanMap = {{'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}};
-    int result = 0;
-    for (int i = 0; i < s.length(); i++) {
-        result += romanMap[s[i]];
-    }
-    return result;
-}</code></pre>
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-            </div>
-
-            <h3>Explanation</h3>
-            <p>The hash table approach involves creating a mapping of Roman numerals to their corresponding integer values and then iterating over the input string to look up the values in the hash table. This approach has a time complexity of O(n), where n is the length of the input string.</p>
-
-            <h3>Dry Run</h3>
-            <table>
-                <tr>
-                    <th>Index</th>
-                    <th>Character</th>
-                    <th>Result</th>
-                    <th>Explanation</th>
-                </tr>
-                <tr>
-                    <td>0</td>
-                    <td>M</td>
-                    <td>1000</td>
-                    <td>Lookup M in map: 1000, result += 1000</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>C</td>
-                    <td>1100</td>
-                    <td>Lookup C in map: 100, result += 100</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>M</td>
-                    <td>2100</td>
-                    <td>Lookup M in map: 1000, result += 1000</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>X</td>
-                    <td>2110</td>
-                    <td>Lookup X in map: 10, result += 10</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>C</td>
-                    <td>2210</td>
-                    <td>Lookup C in map: 100, result += 100</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>V</td>
-                    <td>2215</td>
-                    <td>Lookup V in map: 5, result += 5</td>
-                </tr>
-            </table>
-
-            <h3>Pros and Cons</h3>
-            <div class="pros-cons">
-                <div>
-                    <h4>Pros:</h4>
-                    <ul>
-                        <li>Faster than the brute force approach and easy to implement.</li>
-                    </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="content">
+            <!-- Blog Card for Roman Numerals -->
+            <div class="blog-card">
+                <h1>Understanding Roman Numerals to Integer Conversion</h1>
+                <img src="https://via.placeholder.com/800x400.png?text=Roman+Numerals+to+Integer+Conversion" alt="Roman Numerals to Integer Conversion">
+                
+    
+                <h3>Approach 1: Brute Force</h3>
+                <div class="code-container">
+                    <pre><code class="language-cpp">int romanToInt(string s) {
+        int result = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == 'I') result += 1;
+            else if (s[i] == 'V') result += 5;
+            else if (s[i] == 'X') result += 10;
+            else if (s[i] == 'L') result += 50;
+            else if (s[i] == 'C') result += 100;
+            else if (s[i] == 'D') result += 500;
+            else if (s[i] == 'M') result += 1000;
+        }
+        return result;
+    }</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 </div>
-                <div>
-                    <h4>Cons:</h4>
-                    <ul>
-                        <li>Still has a time complexity of O(n) and may not be efficient for very large input strings.</li>
-                    </ul>
+    
+                <h3>Explanation</h3>
+                <p>The brute force approach involves iterating over the entire string and checking each character to see if it matches a Roman numeral. If it does, add the corresponding integer value to the result. This approach has a time complexity of O(n), where n is the length of the input string.</p>
+    
+                <h3>Dry Run</h3>
+                <table>
+                    <tr>
+                        <th>Index</th>
+                        <th>Character</th>
+                        <th>Result</th>
+                        <th>Explanation</th>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>M</td>
+                        <td>1000</td>
+                        <td>M = 1000, result += 1000</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>C</td>
+                        <td>1100</td>
+                        <td>C = 100, result += 100</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>M</td>
+                        <td>2100</td>
+                        <td>M = 1000, result += 1000</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>X</td>
+                        <td>2110</td>
+                        <td>X = 10, result += 10</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>C</td>
+                        <td>2210</td>
+                        <td>C = 100, result += 100</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>IV</td>
+                        <td>2215</td>
+                        <td>V = 5, result += 5</td>
+                    </tr>
+                </table>
+    
+                <h3>Pros and Cons</h3>
+                <div class="pros-cons">
+                    <div>
+                        <h4>Pros:</h4>
+                        <ul>
+                            <li>Easy to implement and understand.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Cons:</h4>
+                        <ul>
+                            <li>Inefficient and slow for large input strings.</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-
-            <h3>Approach 3: Two-Pointer Technique</h3>
-            <div class="code-container">
-                <pre><code class="language-cpp">int romanToInt(string s) {
-    unordered_map<char, int> romanMap = {{'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}};
-    int result = 0;
-    for (int i = 0; i < s.length() - 1; i++) {
-        if (romanMap[s[i]] < romanMap[s[i + 1]]) {
-            result -= romanMap[s[i]];
-        } else {
+    
+                <h3>Approach 2: Hash Table</h3>
+                <div class="code-container">
+                    <pre><code class="language-cpp">int romanToInt(string s) {
+        unordered_map<char, int> romanMap = {{'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}};
+        int result = 0;
+        for (int i = 0; i < s.length(); i++) {
             result += romanMap[s[i]];
         }
-    }
-    result += romanMap[s.back()];
-    return result;
-}</code></pre>
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-            </div>
-
-            <h3>Explanation</h3>
-            <p>The two-pointer technique involves iterating over the input string and comparing each character with the next one. If the current character is smaller than the next one, subtract its value from the result. Otherwise, add its value to the result. Finally, add the value of the last character to the result.</p>
-
-            <h3>Dry Run</h3>
-            <table>
-                <tr>
-                    <th>Index</th>
-                    <th>Character</th>
-                    <th>Next Character</th>
-                    <th>Result</th>
-                    <th>Explanation</th>
-                </tr>
-                <tr>
-                    <td>0</td>
-                    <td>M</td>
-                    <td>C</td>
-                    <td>1000</td>
-                    <td>M >= C, result += 1000</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>C</td>
-                    <td>M</td>
-                    <td>900</td>
-                    <td>C < M, result -= 100</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>M</td>
-                    <td>X</td>
-                    <td>1900</td>
-                    <td>M >= X, result += 1000</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>X</td>
-                    <td>C</td>
-                    <td>1890</td>
-                    <td>X < C, result -= 10</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>C</td>
-                    <td>V</td>
-                    <td>1990</td>
-                    <td>C >= V, result += 100</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>V</td>
-                    <td>-</td>
-                    <td>1995</td>
-                    <td>V is last, result += 5</td>
-                </tr>
-            </table>
-
-            <h3>Pros and Cons</h3>
-            <div class="pros-cons">
-                <div>
-                    <h4>Pros:</h4>
-                    <ul>
-                        <li>Efficient with a time complexity of O(n).</li>
-                        <li>Reduces unnecessary additions and subtractions.</li>
-                    </ul>
+        return result;
+    }</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 </div>
-                <div>
-                    <h4>Cons:</h4>
-                    <ul>
-                        <li>More complex to understand compared to the other approaches.</li>
-                    </ul>
+    
+                <h3>Explanation</h3>
+                <p>The hash table approach involves creating a mapping of Roman numerals to their corresponding integer values and then iterating over the input string to look up the values in the hash table. This approach has a time complexity of O(n), where n is the length of the input string.</p>
+    
+                <h3>Dry Run</h3>
+                <table>
+                    <tr>
+                        <th>Index</th>
+                        <th>Character</th>
+                        <th>Result</th>
+                        <th>Explanation</th>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>M</td>
+                        <td>1000</td>
+                        <td>Lookup M in map: 1000, result += 1000</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>C</td>
+                        <td>1100</td>
+                        <td>Lookup C in map: 100, result += 100</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>M</td>
+                        <td>2100</td>
+                        <td>Lookup M in map: 1000, result += 1000</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>X</td>
+                        <td>2110</td>
+                        <td>Lookup X in map: 10, result += 10</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>C</td>
+                        <td>2210</td>
+                        <td>Lookup C in map: 100, result += 100</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>V</td>
+                        <td>2215</td>
+                        <td>Lookup V in map: 5, result += 5</td>
+                    </tr>
+                </table>
+    
+                <h3>Pros and Cons</h3>
+                <div class="pros-cons">
+                    <div>
+                        <h4>Pros:</h4>
+                        <ul>
+                            <li>Faster than the brute force approach and easy to implement.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Cons:</h4>
+                        <ul>
+                            <li>Still has a time complexity of O(n) and may not be efficient for very large input strings.</li>
+                        </ul>
+                    </div>
+                </div>
+    
+                <h3>Approach 3: Two-Pointer Technique</h3>
+                <div class="code-container">
+                    <pre><code class="language-cpp">int romanToInt(string s) {
+        unordered_map<char, int> romanMap = {{'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}};
+        int result = 0;
+        for (int i = 0; i < s.length() - 1; i++) {
+            if (romanMap[s[i]] < romanMap[s[i + 1]]) {
+                result -= romanMap[s[i]];
+            } else {
+                result += romanMap[s[i]];
+            }
+        }
+        result += romanMap[s.back()];
+        return result;
+    }</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+    
+                <h3>Explanation</h3>
+                <p>The two-pointer technique involves iterating over the input string and comparing each character with the next one. If the current character is smaller than the next one, subtract its value from the result. Otherwise, add its value to the result. Finally, add the value of the last character to the result.</p>
+    
+                <h3>Dry Run</h3>
+                <table>
+                    <tr>
+                        <th>Index</th>
+                        <th>Character</th>
+                        <th>Next Character</th>
+                        <th>Result</th>
+                        <th>Explanation</th>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>M</td>
+                        <td>C</td>
+                        <td>1000</td>
+                        <td>M >= C, result += 1000</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>C</td>
+                        <td>M</td>
+                        <td>900</td>
+                        <td>C < M, result -= 100</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>M</td>
+                        <td>X</td>
+                        <td>1900</td>
+                        <td>M >= X, result += 1000</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>X</td>
+                        <td>C</td>
+                        <td>1890</td>
+                        <td>X < C, result -= 10</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>C</td>
+                        <td>V</td>
+                        <td>1990</td>
+                        <td>C >= V, result += 100</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>V</td>
+                        <td>-</td>
+                        <td>1995</td>
+                        <td>V is last, result += 5</td>
+                    </tr>
+                </table>
+    
+                <h3>Pros and Cons</h3>
+                <div class="pros-cons">
+                    <div>
+                        <h4>Pros:</h4>
+                        <ul>
+                            <li>Efficient with a time complexity of O(n).</li>
+                            <li>Reduces unnecessary additions and subtractions.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Cons:</h4>
+                        <ul>
+                            <li>More complex to understand compared to the other approaches.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="mb-0">© 2024 Arin Dhimar. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/index.js"></script>
 </body>
 
 </html>
- 
